@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Instrument_Sans } from "next/font/google";
+import { Analytics } from "@vercel/analytics/next";
 import "./globals.css";
 
 const instrumentSans = Instrument_Sans({
@@ -35,6 +36,7 @@ export default function RootLayout({
     <html lang="en" className={`dark ${instrumentSans.variable}`}>
       <body className="font-sans antialiased" style={{ backgroundColor: "oklch(0.145 0 0)" }}>
         {children}
+        <Analytics />
       </body>
     </html>
   );
