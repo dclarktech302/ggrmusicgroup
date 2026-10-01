@@ -29,7 +29,7 @@ export function PhotoMosaic({ photos }: { photos: HomePhoto[] }) {
                         type="button"
                         aria-label={`Open photo: ${photo.alt}`}
                         onClick={(e) => open(i, e.currentTarget)}
-                        className={`relative flex cursor-pointer items-end overflow-hidden p-2 text-left font-mono text-[9px] contrast-125 -outline-offset-2 outline-ggr-red hover:outline-2 focus-visible:outline-2 ${i === 0 ? 'row-span-2' : ''}`}
+                        className={`relative flex cursor-pointer items-end overflow-hidden p-2 text-left font-mono text-[9px] contrast-125 -outline-offset-2 outline-white focus-visible:outline-2 ${i === 0 ? 'row-span-2' : ''}`}
                         style={{ background: photo.gradient }}
                     >
                         {photo.thumbSrc && (
