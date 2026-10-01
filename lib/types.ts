@@ -13,3 +13,35 @@ export interface SubscribeFormData {
 }
 
 export type SubscribeFormErrors = Partial<Record<keyof SubscribeFormData, string>>;
+
+export interface HomePhoto {
+    id: string;
+    /** Short mono label shown on the tile, e.g. "PHOTO · CROWD". Placeholder-only; drop once real photos land. */
+    label: string;
+    alt: string;
+    /** CSS background used while no real photo is supplied. */
+    gradient: string;
+    /** Tile-sized image. When absent the gradient placeholder is rendered. */
+    thumbSrc?: string;
+    /** Full-res image for the lightbox. Falls back to thumbSrc. */
+    fullSrc?: string;
+}
+
+export interface GgrEvent {
+    title: string;
+    /** Series/edition label used in the eyebrow, e.g. "Ghostfest No. 04". */
+    editionLabel: string;
+    /** ISO calendar date, e.g. "2026-10-24". */
+    date: string;
+    doorsTime: string;
+    venueName: string;
+    venueShortName: string;
+    city: string;
+    state: string;
+}
+
+export interface HomeContent {
+    photos: HomePhoto[];
+    event: GgrEvent;
+    ctaHref: string;
+}

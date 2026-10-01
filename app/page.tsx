@@ -1,4 +1,4 @@
-import HeroSection from '@/components/hero-section';
+import GgrHero from '@/components/home/ggr-hero';
 import FeaturesWithImages from '@/components/features-12';
 import FooterSection from '@/components/footer';
 import { ArrowRight, Bell, Music, Users } from 'lucide-react';
@@ -6,7 +6,7 @@ import { ArrowRight, Bell, Music, Users } from 'lucide-react';
 export default function Home() {
     return (
         <>
-            <HeroSection />
+            <GgrHero />
 
             <FeaturesWithImages />
 
