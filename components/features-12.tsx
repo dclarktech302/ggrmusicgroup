@@ -11,19 +11,19 @@ export default function FeaturesWithImages() {
 
     const images = {
         'item-1': {
-            image: '/images/artistic_setting.jpg',
+            image: '/images/artistic-setting.webp',
             alt: 'Man standing around graffiti',
         },
         'item-2': {
-            image: '/images/sound_board.jpg',
+            image: '/images/sound-board.webp',
             alt: 'High quality soundboard for music recording',
         },
         'item-3': {
-            image: '/images/guitar_amps.jpg',
+            image: '/images/guitar-amps.webp',
             alt: 'Guitar amplifiers for music recording',
         },
         'item-4': {
-            image: '/images/piano_instructor_student.jpg',
+            image: '/images/piano-instructor-student.webp',
             alt: 'Piano instructor and student',
         },
     }
