@@ -26,20 +26,20 @@ export default function ContentSection() {
                 <div className="mx-auto max-w-xl space-y-4 text-center">
                     <img
                         className="rounded-(--radius) cursor-pointer hover:opacity-90 transition-opacity"
-                        src="/images/GhocaseV-8.JPG"
+                        src="/images/ghocasev-8.webp"
                         alt="Gho Case V event photography"
                         loading="lazy"
-                        onClick={() => openLightbox('/images/GhocaseV-8.JPG')}
+                        onClick={() => openLightbox('/images/ghocasev-8.webp')}
                     />
                 </div>
 
                 <div className="mx-auto max-w-xl space-y-4 text-center">
                     <img
                         className="rounded-(--radius) cursor-pointer hover:opacity-90 transition-opacity"
-                        src="/images/IMG_4498.jpeg"
+                        src="/images/img-4498.webp"
                         alt="GGR & Friends Part 2 event photography"
                         loading="lazy"
-                        onClick={() => openLightbox('/images/IMG_4498.jpeg')}
+                        onClick={() => openLightbox('/images/img-4498.webp')}
                     />
                 </div>
 

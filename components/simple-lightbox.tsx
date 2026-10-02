@@ -8,39 +8,39 @@ export default function SimpleLightbox() {
 
   const images = [
     {
-      src: "/images/hst5409-enhanced-nr.JPG",
+      src: "/images/hst5409-enhanced-nr.webp",
       alt: "Live music performance with dynamic lighting effects",
     },
     {
-      src: "/images/0286CBA7-8496-4BA6-B2F7-ACC9691751B1.JPG",
+      src: "/images/0286cba7-8496-4ba6-b2f7-acc9691751b1.webp",
       alt: "Music event crowd enjoying live performance",
     },
     {
-      src: "/images/IMG_4045.jpeg",
+      src: "/images/img-4045.webp",
       alt: "Concert venue with stage setup and lighting rig",
     },
     {
-      src: "/images/IMG_4515.jpeg",
+      src: "/images/img-4515.webp",
       alt: "Musician performing on stage with instruments",
     },
     {
-      src: "/images/IMG_4510.jpeg",
+      src: "/images/img-4510.webp",
       alt: "Audience view from concert photography",
     },
     {
-      src: "/images/hst3437-enhanced-nr.JPG",
+      src: "/images/hst3437-enhanced-nr.webp",
       alt: "Enhanced concert photography with vibrant stage lighting",
     },
     {
-      src: "/images/IMG_4508.jpeg",
+      src: "/images/img-4508.webp",
       alt: "Live music event with stage production",
     },
     {
-      src: "/images/photo_095202374210.jpg",
+      src: "/images/photo-095202374210.webp",
       alt: "Live music event with stage production",
     },
     {
-      src: "/images/photo_0915202381027.jpg",
+      src: "/images/photo-0915202381027.webp",
       alt: "Live music event with stage production",
     },
   ];
