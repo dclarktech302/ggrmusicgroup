@@ -1,3 +1,4 @@
+import { imageFields } from '@/lib/images';
 import type { GgrEvent, HomeContent } from '@/lib/types';
 
 const MONTHS = ['JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUN', 'JUL', 'AUG', 'SEP', 'OCT', 'NOV', 'DEC'];
@@ -7,17 +8,17 @@ const MONTHS = ['JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUN', 'JUL', 'AUG', 'SEP', '
  * fetch later. Components only depend on the HomeContent shape.
  */
 export async function getHomeContent(): Promise<HomeContent> {
-    // Photos below are gradient placeholders. To use a real image, spread its manifest fields:
-    //   { id: 'crowd', label: '...', alt: '...', gradient: '...', ...imageFields('my-photo-slug') }
-    // (imageFields from '@/lib/images' fills thumbSrc/fullSrc/width/height/blurDataURL).
+    // Baseline test photos for the hero mosaic. Swap the slug (file name in public/images, without
+    // extension) for the final image; imageFields() fills thumbSrc/fullSrc/width/height/blurDataURL.
+    // The gradient is shown behind the photo until it loads and is the fallback if no slug is given.
     return {
         ctaHref: '/subscribe',
         photos: [
-            { id: 'crowd', label: 'PHOTO · CROWD', alt: 'Crowd at a GGR show', gradient: 'linear-gradient(160deg,#6a6a6a,#1c1c1c)' },
-            { id: 'stage', label: 'PHOTO · STAGE', alt: 'Artist on stage', gradient: 'linear-gradient(200deg,#8a8a8a,#2a2a2a)' },
-            { id: 'skate', label: 'PHOTO · SKATE', alt: 'Skaters at Lurking Class', gradient: 'linear-gradient(120deg,#4a4a4a,#141414)' },
-            { id: 'mic', label: 'PHOTO · MIC', alt: 'Microphone close-up', gradient: 'linear-gradient(180deg,#5a5a5a,#1a1a1a)' },
-            { id: 'dj', label: 'PHOTO · DJ', alt: 'DJ at the decks', gradient: 'linear-gradient(140deg,#777,#222)' },
+            { id: 'crowd', label: 'PHOTO · CROWD', alt: 'Black and white shot of a performer and crowd inside a venue', gradient: 'linear-gradient(160deg,#6a6a6a,#1c1c1c)', ...imageFields('photo-095202374210') },
+            { id: 'stage', label: 'PHOTO · STAGE', alt: 'Artist performing on a lit stage', gradient: 'linear-gradient(200deg,#8a8a8a,#2a2a2a)', ...imageFields('img-4045') },
+            { id: 'skate', label: 'PHOTO · SKATE', alt: 'Rapper in front of a wall of skateboard decks', gradient: 'linear-gradient(120deg,#4a4a4a,#141414)', ...imageFields('hst5409-enhanced-nr') },
+            { id: 'mic', label: 'PHOTO · MIC', alt: 'Singer on the mic under purple light', gradient: 'linear-gradient(180deg,#5a5a5a,#1a1a1a)', ...imageFields('img-4508') },
+            { id: 'dj', label: 'PHOTO · DJ', alt: 'Mixing console with lit faders', gradient: 'linear-gradient(140deg,#777,#222)', ...imageFields('sound-board') },
         ],
         event: {
             title: 'Ghostfest 4',
