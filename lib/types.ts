@@ -25,6 +25,10 @@ export interface HomePhoto {
     thumbSrc?: string;
     /** Full-res image for the lightbox. Falls back to thumbSrc. */
     fullSrc?: string;
+    /** Intrinsic size and tiny blur placeholder, from the image manifest (see lib/images.ts). */
+    width?: number;
+    height?: number;
+    blurDataURL?: string;
 }
 
 export interface GgrEvent {

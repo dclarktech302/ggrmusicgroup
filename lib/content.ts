@@ -7,6 +7,9 @@ const MONTHS = ['JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUN', 'JUL', 'AUG', 'SEP', '
  * fetch later. Components only depend on the HomeContent shape.
  */
 export async function getHomeContent(): Promise<HomeContent> {
+    // Photos below are gradient placeholders. To use a real image, spread its manifest fields:
+    //   { id: 'crowd', label: '...', alt: '...', gradient: '...', ...imageFields('my-photo-slug') }
+    // (imageFields from '@/lib/images' fills thumbSrc/fullSrc/width/height/blurDataURL).
     return {
         ctaHref: '/subscribe',
         photos: [
