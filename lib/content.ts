@@ -1,5 +1,5 @@
-import { imageFields } from '@/lib/images';
-import type { GgrEvent, HomeContent } from '@/lib/types';
+import { imageFields, imageWithAlt } from '@/lib/images';
+import type { GgrEvent, HomeContent, ShowsContent } from '@/lib/types';
 
 const MONTHS = ['JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUN', 'JUL', 'AUG', 'SEP', 'OCT', 'NOV', 'DEC'];
 
@@ -30,6 +30,27 @@ export async function getHomeContent(): Promise<HomeContent> {
             city: 'Salisbury',
             state: 'MD',
         },
+    };
+}
+
+/** Shows page images. Same shape-over-source idea as getHomeContent(): swap for a CMS fetch later. */
+export async function getShowsContent(): Promise<ShowsContent> {
+    return {
+        featured: [
+            imageWithAlt('ghocasev-8', 'Gho Case V event photography'),
+            imageWithAlt('img-4498', 'GGR & Friends Part 2 event photography'),
+        ],
+        gallery: [
+            imageWithAlt('hst5409-enhanced-nr', 'Live music performance with dynamic lighting effects'),
+            imageWithAlt('0286cba7-8496-4ba6-b2f7-acc9691751b1', 'Music event crowd enjoying live performance'),
+            imageWithAlt('img-4045', 'Concert venue with stage setup and lighting rig'),
+            imageWithAlt('img-4515', 'Musician performing on stage with instruments'),
+            imageWithAlt('img-4510', 'Audience view from concert photography'),
+            imageWithAlt('hst3437-enhanced-nr', 'Enhanced concert photography with vibrant stage lighting'),
+            imageWithAlt('img-4508', 'Live music event with stage production'),
+            imageWithAlt('photo-095202374210', 'Live music event with stage production'),
+            imageWithAlt('photo-0915202381027', 'Live music event with stage production'),
+        ],
     };
 }
 

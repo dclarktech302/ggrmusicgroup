@@ -1,20 +1,22 @@
 'use client'
 
+import Image from 'next/image'
 import SimpleLightbox from './simple-lightbox'
 import * as React from 'react'
+import type { ShowsImage } from '@/lib/types'
 
-export default function ContentSection() {
+export default function ContentSection({ featured, gallery }: { featured: ShowsImage[]; gallery: ShowsImage[] }) {
     const [lightboxOpen, setLightboxOpen] = React.useState(false)
-    const [currentImage, setCurrentImage] = React.useState('')
+    const [currentImage, setCurrentImage] = React.useState<ShowsImage | null>(null)
 
-    const openLightbox = (imageSrc: string) => {
-        setCurrentImage(imageSrc)
+    const openLightbox = (image: ShowsImage) => {
+        setCurrentImage(image)
         setLightboxOpen(true)
     }
 
     const closeLightbox = () => {
         setLightboxOpen(false)
-        setCurrentImage('')
+        setCurrentImage(null)
     }
     return (
         <section id="shows" className="py-16 md:py-32">
@@ -23,39 +25,44 @@ export default function ContentSection() {
                     <h2 className="text-balance text-4xl font-medium lg:text-5xl">Shows and Events</h2>
                 </div>
 
-                <div className="mx-auto max-w-xl space-y-4 text-center">
-                    <img
-                        className="rounded-(--radius) cursor-pointer hover:opacity-90 transition-opacity"
-                        src="/images/ghocasev-8.webp"
-                        alt="Gho Case V event photography"
-                        loading="lazy"
-                        onClick={() => openLightbox('/images/ghocasev-8.webp')}
-                    />
-                </div>
+                {featured.map((image, i) => (
+                    <div key={image.src} className="mx-auto max-w-xl space-y-4 text-center">
+                        <Image
+                            className="h-auto w-full rounded-(--radius) cursor-pointer hover:opacity-90 transition-opacity"
+                            src={image.src}
+                            alt={image.alt}
+                            width={image.width}
+                            height={image.height}
+                            sizes="(min-width: 576px) 576px, 100vw"
+                            placeholder="blur"
+                            blurDataURL={image.blurDataURL}
+                            // First featured image is the page's LCP element; the rest load lazily.
+                            loading={i === 0 ? 'eager' : 'lazy'}
+                            fetchPriority={i === 0 ? 'high' : 'auto'}
+                            onClick={() => openLightbox(image)}
+                        />
+                    </div>
+                ))}
 
-                <div className="mx-auto max-w-xl space-y-4 text-center">
-                    <img
-                        className="rounded-(--radius) cursor-pointer hover:opacity-90 transition-opacity"
-                        src="/images/img-4498.webp"
-                        alt="GGR & Friends Part 2 event photography"
-                        loading="lazy"
-                        onClick={() => openLightbox('/images/img-4498.webp')}
-                    />
-                </div>
-
-                <SimpleLightbox />
+                <SimpleLightbox images={gallery} />
 
                 {/* Individual Image Lightbox */}
-                {lightboxOpen && (
+                {lightboxOpen && currentImage && (
                     <div
                         className="fixed inset-0 bg-black bg-opacity-90 z-50 flex items-center justify-center"
                         onClick={closeLightbox}
                     >
                         <div className="relative max-w-4xl max-h-full p-4">
-                            <img
-                                src={currentImage}
-                                alt="Event photography"
-                                className="max-w-full max-h-full object-contain"
+                            <Image
+                                src={currentImage.src}
+                                alt={currentImage.alt}
+                                width={currentImage.width}
+                                height={currentImage.height}
+                                sizes="(min-width: 896px) 896px, 100vw"
+                                className="h-auto max-h-[90vh] w-auto max-w-full object-contain"
+                                placeholder="blur"
+                                blurDataURL={currentImage.blurDataURL}
+                                loading="eager"
                                 onClick={(e) => e.stopPropagation()}
                             />
 

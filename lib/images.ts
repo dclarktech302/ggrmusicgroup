@@ -29,3 +29,9 @@ export function imageFields(slug: ImageSlug) {
     const { src, width, height, blurDataURL, thumb } = getImage(slug);
     return { thumbSrc: thumb?.src ?? src, fullSrc: src, width, height, blurDataURL };
 }
+
+/** Image fields plus alt text, for components that render a plain image (e.g. the shows page). */
+export function imageWithAlt(slug: ImageSlug, alt: string) {
+    const { src, width, height, blurDataURL } = getImage(slug);
+    return { src, alt, width, height, blurDataURL };
+}

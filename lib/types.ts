@@ -49,3 +49,18 @@ export interface HomeContent {
     event: GgrEvent;
     ctaHref: string;
 }
+
+/** A photo on the shows page; dimensions and blur placeholder come from the image manifest. */
+export interface ShowsImage {
+    src: string;
+    alt: string;
+    width: number;
+    height: number;
+    blurDataURL: string;
+}
+
+export interface ShowsContent {
+    /** Large images shown above the gallery; the first is the LCP candidate. */
+    featured: ShowsImage[];
+    gallery: ShowsImage[];
+}
