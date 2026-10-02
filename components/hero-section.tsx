@@ -34,19 +34,19 @@ export default function HeroSection() {
 
     const carouselImages = [
         {
-            src: "/images/3d-music-related-scene.jpg",
+            src: "/images/3d-music-related-scene.webp",
             alt: "3D music visualization",
             title: "Live Performances",
             description: "Experience the energy of live music events"
         },
         {
-            src: "/images/3f56658e-7c79-42ae-bed1-38c3f6ff7b4c.jpg",
+            src: "/images/3f56658e-7c79-42ae-bed1-38c3f6ff7b4c.webp",
             alt: "music festival",
             title: "Artist Showcases",
             description: "Discover talented local and regional artists"
         },
         {
-            src: "/images/back-view-audience-with-arms-raised-front-stage-music-concert.jpg",
+            src: "/images/back-view-audience-with-arms-raised-front-stage-music-concert.webp",
             alt: "music concert",
             title: "Community Events",
             description: "Join our growing music community"

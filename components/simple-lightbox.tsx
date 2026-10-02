@@ -1,49 +1,12 @@
 'use client'
 
+import Image from "next/image";
 import * as React from "react";
+import type { ShowsImage } from "@/lib/types";
 
-export default function SimpleLightbox() {
+export default function SimpleLightbox({ images }: { images: ShowsImage[] }) {
   const [open, setOpen] = React.useState(false);
   const [currentImage, setCurrentImage] = React.useState(0);
-
-  const images = [
-    {
-      src: "/images/hst5409-enhanced-nr.JPG",
-      alt: "Live music performance with dynamic lighting effects",
-    },
-    {
-      src: "/images/0286CBA7-8496-4BA6-B2F7-ACC9691751B1.JPG",
-      alt: "Music event crowd enjoying live performance",
-    },
-    {
-      src: "/images/IMG_4045.jpeg",
-      alt: "Concert venue with stage setup and lighting rig",
-    },
-    {
-      src: "/images/IMG_4515.jpeg",
-      alt: "Musician performing on stage with instruments",
-    },
-    {
-      src: "/images/IMG_4510.jpeg",
-      alt: "Audience view from concert photography",
-    },
-    {
-      src: "/images/hst3437-enhanced-nr.JPG",
-      alt: "Enhanced concert photography with vibrant stage lighting",
-    },
-    {
-      src: "/images/IMG_4508.jpeg",
-      alt: "Live music event with stage production",
-    },
-    {
-      src: "/images/photo_095202374210.jpg",
-      alt: "Live music event with stage production",
-    },
-    {
-      src: "/images/photo_0915202381027.jpg",
-      alt: "Live music event with stage production",
-    },
-  ];
 
   const openLightbox = (index: number) => {
     setCurrentImage(index);
@@ -88,13 +51,23 @@ export default function SimpleLightbox() {
     <>
       <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-3 gap-4">
         {images.map((image, index) => (
-          <img
+          <button
             key={index}
-            src={image.src}
-            alt={image.alt}
-            className="cursor-pointer rounded-lg object-cover w-full h-32"
+            type="button"
+            aria-label={`Open photo: ${image.alt}`}
+            className="relative block h-32 w-full cursor-pointer overflow-hidden rounded-lg"
             onClick={() => openLightbox(index)}
-          />
+          >
+            <Image
+              src={image.src}
+              alt={image.alt}
+              fill
+              sizes="(min-width: 768px) 270px, 33vw"
+              className="object-cover"
+              placeholder="blur"
+              blurDataURL={image.blurDataURL}
+            />
+          </button>
         ))}
       </div>
 
@@ -104,10 +77,16 @@ export default function SimpleLightbox() {
           onClick={closeLightbox}
         >
           <div className="relative max-w-4xl max-h-full p-4">
-            <img
+            <Image
               src={images[currentImage].src}
               alt={images[currentImage].alt}
-              className="max-w-full max-h-full object-contain"
+              width={images[currentImage].width}
+              height={images[currentImage].height}
+              sizes="(min-width: 896px) 896px, 100vw"
+              className="h-auto max-h-[90vh] w-auto max-w-full object-contain"
+              placeholder="blur"
+              blurDataURL={images[currentImage].blurDataURL}
+              loading="eager"
               onClick={(e) => e.stopPropagation()}
             />
 

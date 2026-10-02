@@ -33,7 +33,18 @@ export function PhotoMosaic({ photos }: { photos: HomePhoto[] }) {
                         style={{ background: photo.gradient }}
                     >
                         {photo.thumbSrc && (
-                            <Image src={photo.thumbSrc} alt="" fill sizes="215px" className="object-cover" />
+                            <Image
+                                src={photo.thumbSrc}
+                                alt=""
+                                fill
+                                sizes="215px"
+                                className="object-cover"
+                                // Mosaic is above the fold; load eagerly, and the big tile first.
+                                loading="eager"
+                                fetchPriority={i === 0 ? 'high' : 'auto'}
+                                placeholder={photo.blurDataURL ? 'blur' : 'empty'}
+                                blurDataURL={photo.blurDataURL}
+                            />
                         )}
                         <span className="relative">{photo.label}</span>
                     </button>

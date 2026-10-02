@@ -25,6 +25,10 @@ export interface HomePhoto {
     thumbSrc?: string;
     /** Full-res image for the lightbox. Falls back to thumbSrc. */
     fullSrc?: string;
+    /** Intrinsic size and tiny blur placeholder, from the image manifest (see lib/images.ts). */
+    width?: number;
+    height?: number;
+    blurDataURL?: string;
 }
 
 export interface GgrEvent {
@@ -44,4 +48,19 @@ export interface HomeContent {
     photos: HomePhoto[];
     event: GgrEvent;
     ctaHref: string;
+}
+
+/** A photo on the shows page; dimensions and blur placeholder come from the image manifest. */
+export interface ShowsImage {
+    src: string;
+    alt: string;
+    width: number;
+    height: number;
+    blurDataURL: string;
+}
+
+export interface ShowsContent {
+    /** Large images shown above the gallery; the first is the LCP candidate. */
+    featured: ShowsImage[];
+    gallery: ShowsImage[];
 }

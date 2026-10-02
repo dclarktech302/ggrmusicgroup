@@ -122,7 +122,16 @@ export function Lightbox({ photos, index, onIndexChange, onClose }: LightboxProp
                 style={{ background: photo.gradient }}
             >
                 {src ? (
-                    <Image src={src} alt="" fill sizes="380px" className="object-cover" priority />
+                    <Image
+                        src={src}
+                        alt=""
+                        fill
+                        sizes="380px"
+                        className="object-cover"
+                        loading="eager"
+                        placeholder={photo.blurDataURL ? 'blur' : 'empty'}
+                        blurDataURL={photo.blurDataURL}
+                    />
                 ) : (
                     <span className="relative">{photo.label} · swap in real photo</span>
                 )}
