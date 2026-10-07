@@ -24,7 +24,7 @@ export default async function GgrHero() {
                 <CtaButton href={ctaHref}>Join the movement →</CtaButton>
                 <Ticker text={buildTickerText(event)} />
                 <NextUp event={event} />
-                <VenueStrip name={event.venueShortName} />
+                <VenueStrip name={event.venueShortName} venueName={event.venueName} venueAddress={event.venueAddress} />
             </main>
         </div>
     );
