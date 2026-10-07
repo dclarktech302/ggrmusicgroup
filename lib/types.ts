@@ -40,6 +40,8 @@ export interface GgrEvent {
     doorsTime: string;
     venueName: string;
     venueShortName: string;
+    /** Street address, used for the venue map link. */
+    venueAddress: string;
     city: string;
     state: string;
 }

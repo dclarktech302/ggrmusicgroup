@@ -16,7 +16,7 @@ export default async function GgrHero() {
     const { photos, event, ctaHref } = await getHomeContent();
 
     return (
-        <div className={`${archivo.variable} ${jetbrainsMono.variable} bg-black font-display`}>
+        <div className={`${archivo.variable} ${jetbrainsMono.variable} bg-black pb-14 font-display md:pb-20`}>
             <main className="relative mx-auto max-w-[430px] overflow-hidden bg-ggr-page pt-[88px] text-white">
                 <GrainOverlay />
                 <PhotoMosaic photos={photos} />
@@ -24,7 +24,7 @@ export default async function GgrHero() {
                 <CtaButton href={ctaHref}>Join the movement →</CtaButton>
                 <Ticker text={buildTickerText(event)} />
                 <NextUp event={event} />
-                <VenueStrip name={event.venueShortName} />
+                <VenueStrip name={event.venueShortName} fullName={event.venueName} address={event.venueAddress} />
             </main>
         </div>
     );
