@@ -15,8 +15,8 @@ export async function getHomeContent(): Promise<HomeContent> {
         ctaHref: '/subscribe',
         photos: [
             { id: 'crowd', label: 'PHOTO · CROWD', alt: 'Black and white shot of a performer and crowd inside a venue', gradient: 'linear-gradient(160deg,#6a6a6a,#1c1c1c)', ...imageFields('photo-095202374210') },
-            { id: 'stage', label: 'PHOTO · STAGE', alt: 'Artist performing on a lit stage', gradient: 'linear-gradient(200deg,#8a8a8a,#2a2a2a)', ...imageFields('img-4045') },
-            { id: 'skate', label: 'PHOTO · SKATE', alt: 'Rapper in front of a wall of skateboard decks', gradient: 'linear-gradient(120deg,#4a4a4a,#141414)', ...imageFields('hst5409-enhanced-nr') },
+            { id: 'stage', label: 'PHOTO · STAGE', alt: 'Large group posing together under the Ghocase V sign', gradient: 'linear-gradient(200deg,#8a8a8a,#2a2a2a)', ...imageFields('ghocasev-8') },
+            { id: 'skate', label: 'PHOTO · SKATE', alt: 'Black and white shot of an artist in white performing on stage with the crowd in front', gradient: 'linear-gradient(120deg,#4a4a4a,#141414)', ...imageFields('photo-0915202381027') },
             { id: 'mic', label: 'PHOTO · MIC', alt: 'Singer on the mic under purple light', gradient: 'linear-gradient(180deg,#5a5a5a,#1a1a1a)', ...imageFields('img-4508') },
             { id: 'dj', label: 'PHOTO · DJ', alt: 'Mixing console with lit faders', gradient: 'linear-gradient(140deg,#777,#222)', ...imageFields('sound-board') },
         ],
