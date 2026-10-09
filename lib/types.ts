@@ -66,3 +66,8 @@ export interface ShowsContent {
     featured: ShowsImage[];
     gallery: ShowsImage[];
 }
+
+export type OfferImageKey = 'item-1' | 'item-2' | 'item-3' | 'item-4';
+
+/** Images for the "What We Offer" accordion, keyed by accordion item. Same shape as the shows images. */
+export type OfferImages = Record<OfferImageKey, ShowsImage>;

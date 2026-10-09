@@ -1,5 +1,5 @@
 import { imageFields, imageWithAlt } from '@/lib/images';
-import type { GgrEvent, HomeContent, ShowsContent } from '@/lib/types';
+import type { GgrEvent, HomeContent, OfferImages, ShowsContent } from '@/lib/types';
 
 const MONTHS = ['JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUN', 'JUL', 'AUG', 'SEP', 'OCT', 'NOV', 'DEC'];
 
@@ -53,6 +53,16 @@ export async function getShowsContent(): Promise<ShowsContent> {
             imageWithAlt('photo-095202374210', 'Live music event with stage production'),
             imageWithAlt('photo-0915202381027', 'Live music event with stage production'),
         ],
+    };
+}
+
+/** "What We Offer" accordion images (stock photos). Swap slugs/alt text here; the component only reads this shape. */
+export async function getOfferImages(): Promise<OfferImages> {
+    return {
+        'item-1': imageWithAlt('artistic-setting', 'Man standing around graffiti'),
+        'item-2': imageWithAlt('sound-board', 'High quality soundboard for music recording'),
+        'item-3': imageWithAlt('guitar-amps', 'Guitar amplifiers for music recording'),
+        'item-4': imageWithAlt('piano-instructor-student', 'Piano instructor and student'),
     };
 }
 

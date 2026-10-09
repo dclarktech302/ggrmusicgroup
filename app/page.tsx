@@ -2,16 +2,19 @@ import GgrHero from '@/components/home/ggr-hero';
 import { HeroHeader } from '@/components/header';
 import FeaturesWithImages from '@/components/features-12';
 import FooterSection from '@/components/footer';
+import { getOfferImages } from '@/lib/content';
 import { ArrowRight, Bell, Music, Users } from 'lucide-react';
 
-export default function Home() {
+export default async function Home() {
+    const offerImages = await getOfferImages();
+
     return (
         <>
             <HeroHeader />
 
             <GgrHero />
 
-            <FeaturesWithImages />
+            <FeaturesWithImages images={offerImages} />
 
             {/* Subscribe CTA Section */}
             <section className="py-20 bg-black">
