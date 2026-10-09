@@ -1,3 +1,4 @@
+import Image from 'next/image'
 import Link from 'next/link'
 
 const links = [
@@ -33,10 +34,12 @@ export default function FooterSection() {
                             rel="noopener noreferrer"
                             aria-label="Facebook"
                             className="text-muted-foreground hover:text-primary block">
-                            <img
+                            <Image
                                 className="size-6"
                                 src="/images/Facebook_Logo_Primary.png"
                                 alt="Facebook"
+                                width={24}
+                                height={24}
                             />
                         </a>
                     </div>
@@ -47,10 +50,12 @@ export default function FooterSection() {
                             rel="noopener noreferrer"
                             aria-label="YouTube"
                             className="text-muted-foreground hover:text-primary block">
-                            <img
+                            <Image
                                 className="size-6"
                                 src="/images/yt_icon_red_digital.png"
                                 alt="YouTube"
+                                width={24}
+                                height={24}
                             />
                         </a>
                     </div>
@@ -61,10 +66,12 @@ export default function FooterSection() {
                             rel="noopener noreferrer"
                             aria-label="SoundCloud"
                             className="text-muted-foreground hover:text-primary block">
-                            <img
+                            <Image
                                 className="size-6"
                                 src="/images/6862460f240ad9ae4680f211_cloudmark-white.png"
                                 alt="SoundCloud"
+                                width={24}
+                                height={24}
                             />
                         </a>
                     </div>
