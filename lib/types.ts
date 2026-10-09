@@ -40,6 +40,8 @@ export interface GgrEvent {
     doorsTime: string;
     venueName: string;
     venueShortName: string;
+    /** Street address used for the map link, e.g. "213 W Main St, Salisbury, MD 21801". */
+    venueAddress: string;
     city: string;
     state: string;
 }

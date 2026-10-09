@@ -27,6 +27,8 @@ export async function getHomeContent(): Promise<HomeContent> {
             doorsTime: '6PM',
             venueName: 'Lurking Class Skate Shop',
             venueShortName: 'Lurking Class',
+            // Source: City of Salisbury business directory. Verify against the shop's own page.
+            venueAddress: '213 W Main St, Salisbury, MD 21801',
             city: 'Salisbury',
             state: 'MD',
         },

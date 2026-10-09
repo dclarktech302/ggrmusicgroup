@@ -233,7 +233,7 @@ input[type="checkbox"]:checked:hover {
 
 .ggr-glitch { animation: ggr-glitch 4.5s infinite; }
 
-.ggr-ticker-track { animation: ggr-tick 14s linear infinite; }
+.ggr-ticker-track { animation: ggr-tick 30s linear infinite; }
 .ggr-ticker-track[data-paused="true"] { animation-play-state: paused; }
 
 .ggr-lightbox-in { animation: ggr-in .2s ease-out; }
