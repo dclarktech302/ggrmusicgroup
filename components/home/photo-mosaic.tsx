@@ -39,6 +39,7 @@ export function PhotoMosaic({ photos }: { photos: HomePhoto[] }) {
                                 fill
                                 sizes="215px"
                                 className="object-cover"
+                                style={{ objectPosition: photo.objectPosition }}
                                 // Mosaic is above the fold; load eagerly, and the big tile first.
                                 loading="eager"
                                 fetchPriority={i === 0 ? 'high' : 'auto'}
