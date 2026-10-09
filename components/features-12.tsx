@@ -1,32 +1,14 @@
 'use client'
 
+import Image from 'next/image'
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion'
 import { ChartBarIncreasingIcon, Mic, Music, Users } from 'lucide-react'
 import { useState } from 'react'
 import { motion, AnimatePresence } from 'motion/react'
+import type { OfferImageKey, OfferImages } from '@/lib/types'
 
-export default function FeaturesWithImages() {
-    type ImageKey = 'item-1' | 'item-2' | 'item-3' | 'item-4'
-    const [activeItem, setActiveItem] = useState<ImageKey>('item-1')
-
-    const images = {
-        'item-1': {
-            image: '/images/artistic-setting.webp',
-            alt: 'Man standing around graffiti',
-        },
-        'item-2': {
-            image: '/images/sound-board.webp',
-            alt: 'High quality soundboard for music recording',
-        },
-        'item-3': {
-            image: '/images/guitar-amps.webp',
-            alt: 'Guitar amplifiers for music recording',
-        },
-        'item-4': {
-            image: '/images/piano-instructor-student.webp',
-            alt: 'Piano instructor and student',
-        },
-    }
+export default function FeaturesWithImages({ images }: { images: OfferImages }) {
+    const [activeItem, setActiveItem] = useState<OfferImageKey>('item-1')
 
     return (
         <section className="py-12 md:pb-20 lg:pb-32">
@@ -41,7 +23,7 @@ export default function FeaturesWithImages() {
                     <Accordion
                         type="single"
                         value={activeItem}
-                        onValueChange={(value) => setActiveItem(value as ImageKey)}
+                        onValueChange={(value) => setActiveItem(value as OfferImageKey)}
                         className="w-full">
                         <AccordionItem value="item-1">
                             <AccordionTrigger>
@@ -91,11 +73,16 @@ export default function FeaturesWithImages() {
                                     animate={{ opacity: 1, y: 0, scale: 1 }}
                                     exit={{ opacity: 0, y: 6, scale: 0.98 }}
                                     transition={{ duration: 0.2 }}
-                                    className="size-full overflow-hidden rounded-2xl border bg-zinc-900 shadow-md">
-                                    <img
-                                        src={images[activeItem].image}
-                                        className="size-full object-cover object-left-top dark:mix-blend-lighten"
+                                    className="relative size-full overflow-hidden rounded-2xl border bg-zinc-900 shadow-md">
+                                    <Image
+                                        src={images[activeItem].src}
                                         alt={images[activeItem].alt}
+                                        fill
+                                        // Image box is ~75vw below 640px, ~34vw at md, 370px from lg up.
+                                        sizes="(min-width: 1024px) 370px, (min-width: 768px) 34vw, (min-width: 640px) 500px, 75vw"
+                                        className="object-cover object-left-top dark:mix-blend-lighten"
+                                        placeholder="blur"
+                                        blurDataURL={images[activeItem].blurDataURL}
                                     />
                                 </motion.div>
                             </AnimatePresence>

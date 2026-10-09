@@ -25,6 +25,8 @@ export interface HomePhoto {
     thumbSrc?: string;
     /** Full-res image for the lightbox. Falls back to thumbSrc. */
     fullSrc?: string;
+    /** CSS object-position for the mosaic tile crop, e.g. "center top" to keep a head in frame. Default: centered. */
+    objectPosition?: string;
     /** Intrinsic size and tiny blur placeholder, from the image manifest (see lib/images.ts). */
     width?: number;
     height?: number;
@@ -66,3 +68,8 @@ export interface ShowsContent {
     featured: ShowsImage[];
     gallery: ShowsImage[];
 }
+
+export type OfferImageKey = 'item-1' | 'item-2' | 'item-3' | 'item-4';
+
+/** Images for the "What We Offer" accordion, keyed by accordion item. Same shape as the shows images. */
+export type OfferImages = Record<OfferImageKey, ShowsImage>;
