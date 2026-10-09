@@ -9,7 +9,7 @@ import { VenueStrip } from '@/components/home/venue-strip';
 import { buildTickerText, getHomeContent } from '@/lib/content';
 
 /**
- * v3 mobile-style hero: a 430px column on a black band. Swap into app/page.tsx in place of HeroSection.
+ * v3 mobile-style hero: a 430px column on a black band, rendered by app/page.tsx.
  * Navigation comes from the site-wide HeroHeader (fixed) rendered by the page; pt clears it.
  */
 export default async function GgrHero() {
