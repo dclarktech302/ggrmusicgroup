@@ -151,6 +151,14 @@ input[type="checkbox"]:checked:hover {
     --color-chart-3: var(--chart-3);
     --color-chart-4: var(--chart-4);
     --color-chart-5: var(--chart-5);
+
+    /* GGR home hero */
+    --color-ggr-page: #0a0a0a;
+    --color-ggr-red: #e10600;
+    --color-ggr-paper: #f4f4f2;
+    --color-ggr-line: #333;
+    --font-display: var(--font-archivo), ui-sans-serif, system-ui, sans-serif;
+    --font-mono: var(--font-jetbrains-mono), ui-monospace, Menlo, monospace;
 }
 
 :root {
@@ -188,5 +196,53 @@ input[type="checkbox"]:checked:hover {
 
     body {
         @apply bg-background text-foreground;
+    }
+}
+
+/* ---- GGR home hero ---- */
+@keyframes ggr-grain {
+    0% { transform: translate(0, 0); }
+    20% { transform: translate(-3%, 2%); }
+    40% { transform: translate(2%, -3%); }
+    60% { transform: translate(-2%, -1%); }
+    80% { transform: translate(3%, 3%); }
+    100% { transform: translate(0, 0); }
+}
+
+@keyframes ggr-glitch {
+    0%, 86%, 100% { text-shadow: 0 0 0 transparent; transform: none; }
+    88% { text-shadow: -4px 0 #e10600, 4px 0 #fff; transform: translateX(2px); }
+    92% { text-shadow: 4px 0 #e10600, -4px 0 #fff; transform: translateX(-3px) skewX(-4deg); }
+    96% { text-shadow: -2px 0 #e10600; transform: translateX(1px); }
+}
+
+@keyframes ggr-tick {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+}
+
+@keyframes ggr-in {
+    from { opacity: 0; transform: scale(.96); }
+    to { opacity: 1; transform: none; }
+}
+
+.ggr-grain {
+    background-image: url("data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .5 0 0 0 0 .5 0 0 0 0 .5 0 0 0 1.6 -.3'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)'/%3E%3C/svg%3E");
+    animation: ggr-grain .6s steps(5) infinite;
+}
+
+.ggr-glitch { animation: ggr-glitch 4.5s infinite; }
+
+.ggr-ticker-track { animation: ggr-tick 30s linear infinite; }
+.ggr-ticker-track[data-paused="true"] { animation-play-state: paused; }
+
+.ggr-lightbox-in { animation: ggr-in .2s ease-out; }
+
+@media (prefers-reduced-motion: reduce) {
+    .ggr-grain,
+    .ggr-glitch,
+    .ggr-ticker-track,
+    .ggr-lightbox-in {
+        animation: none !important;
     }
 }
