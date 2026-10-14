@@ -27,7 +27,7 @@ export default async function GgrHero() {
             <main className="relative mx-auto max-w-[430px] overflow-hidden bg-ggr-page pt-[88px] text-white md:max-w-none lg:pt-[120px]">
                 <GrainOverlay />
 
-                <div className="md:mx-auto md:max-w-[736px] md:px-6 lg:grid lg:max-w-[1456px] lg:grid-cols-12 lg:items-center lg:gap-x-6 lg:px-14">
+                <div className="md:mx-auto md:max-w-[736px] md:px-6 md:pb-12 lg:grid lg:max-w-[1456px] lg:grid-cols-12 lg:items-center lg:gap-x-6 lg:px-14 lg:pb-16">
                     <div className="lg:col-[6/13] lg:-mr-14">
                         <PhotoMosaic photos={photos} />
                     </div>

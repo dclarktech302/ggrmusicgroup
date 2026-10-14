@@ -58,9 +58,9 @@ export function VenueMapChooser({ venueName, venueAddress }: VenueMapChooserProp
             </button>
 
             <div id={panelId} hidden={!open} className="basis-full pt-5">
-                <ul className="flex flex-col gap-2">
+                <ul className="flex flex-col gap-2 md:flex-row md:justify-end md:gap-3">
                     {links.map((link) => (
-                        <li key={link.id}>
+                        <li key={link.id} className="md:w-52 lg:w-60">
                             <a
                                 href={link.href}
                                 target="_blank"
