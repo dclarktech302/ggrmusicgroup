@@ -10,7 +10,8 @@ export default async function Home() {
 
     return (
         <>
-            <HeroHeader />
+            {/* Same container widths as GgrHero so the logo lines up with the hero's left edge. */}
+            <HeroHeader contentClassName="md:max-w-[736px] lg:max-w-[1440px]" />
 
             <GgrHero />
 

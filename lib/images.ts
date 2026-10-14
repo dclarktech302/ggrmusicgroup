@@ -26,8 +26,10 @@ export function getImage(slug: ImageSlug): ManifestImage {
  * The single place `src` is decided, so a custom loader/CDN can be introduced without touching components.
  */
 export function imageFields(slug: ImageSlug) {
-    const { src, width, height, blurDataURL, thumb } = getImage(slug);
-    return { thumbSrc: thumb?.src ?? src, fullSrc: src, width, height, blurDataURL };
+    const { src, width, height, blurDataURL } = getImage(slug);
+    // thumbSrc is the full image on purpose: next/image already serves a right-sized variant per tile, and the
+    // 600px `--thumbs` file is too small for the desktop collage (tiles need up to ~970px at 2x).
+    return { thumbSrc: src, fullSrc: src, width, height, blurDataURL };
 }
 
 /** Image fields plus alt text, for components that render a plain image (e.g. the shows page). */

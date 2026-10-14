@@ -88,6 +88,7 @@ export function Lightbox({ photos, index, onIndexChange, onClose }: LightboxProp
 
     const stop = (e: React.SyntheticEvent) => e.stopPropagation();
     const src = photo.fullSrc ?? photo.thumbSrc;
+    const ratio = photo.width && photo.height ? photo.width / photo.height : undefined;
 
     return (
         <div
@@ -100,7 +101,7 @@ export function Lightbox({ photos, index, onIndexChange, onClose }: LightboxProp
             onTouchStart={onTouchStart}
             onTouchEnd={onTouchEnd}
         >
-            <div className="absolute inset-x-5 top-5 flex items-center justify-between font-mono text-[11px] font-semibold tracking-[.14em]">
+            <div className="absolute inset-x-5 top-5 flex items-center justify-between font-mono text-[11px] font-semibold tracking-[.14em] md:inset-x-8 md:top-7 md:text-xs">
                 <span className="text-ggr-red" aria-live="polite">
                     {pad(index + 1)} / {pad(count)}
                 </span>
@@ -118,15 +119,26 @@ export function Lightbox({ photos, index, onIndexChange, onClose }: LightboxProp
                 role="img"
                 aria-label={photo.alt}
                 onClick={stop}
-                className="relative flex h-[min(70vh,520px)] w-[min(86vw,380px)] items-end border border-ggr-line p-3 font-mono text-[10px] contrast-125"
-                style={{ background: photo.gradient }}
+                className="relative flex h-[min(70vh,520px)] w-[min(86vw,380px)] items-end border border-ggr-line p-3 font-mono text-[10px] contrast-125 md:h-auto md:w-[min(92vw,1280px,calc(min(76vh,820px)*var(--ar,.75)),calc(var(--nw,2000)*1.5px))]"
+                // Phones keep the fixed 380x520 box. From md the height is auto and the width is the largest that
+                // fits the viewport at the photo's own aspect ratio, so the box always matches the photo. It is also
+                // capped at 1.5x the photo's native width so a small source is not blown up into a blurry giant.
+                style={
+                    {
+                        background: photo.gradient,
+                        aspectRatio: ratio ? `${ratio}` : '3 / 4',
+                        '--ar': ratio,
+                        '--nw': photo.width,
+                    } as React.CSSProperties
+                }
             >
                 {src ? (
                     <Image
                         src={src}
                         alt=""
                         fill
-                        sizes="380px"
+                        // Phone box is 380px. From md the box is as wide as the photo's aspect allows, up to 1280px.
+                        sizes="(min-width: 1024px) min(92vw, 1280px), (min-width: 768px) 92vw, 380px"
                         className="object-cover"
                         loading="eager"
                         placeholder={photo.blurDataURL ? 'blur' : 'empty'}
@@ -137,7 +149,7 @@ export function Lightbox({ photos, index, onIndexChange, onClose }: LightboxProp
                 )}
             </div>
 
-            <div onClick={stop} className="flex w-[min(86vw,380px)] gap-3">
+            <div onClick={stop} className="flex w-[min(86vw,380px)] gap-3 md:w-[min(92vw,520px)]">
                 <button
                     type="button"
                     onClick={() => go(index - 1)}
