@@ -48,10 +48,29 @@ export interface GgrEvent {
     state: string;
 }
 
+/** The hero's full-bleed background photo (decorative). */
+export interface HeroImage {
+    src: string;
+    width: number;
+    height: number;
+    blurDataURL: string;
+    /** CSS object-position for the crop, e.g. "center 30%". */
+    objectPosition?: string;
+}
+
 export interface HomeContent {
+    /** Photos for the mosaic component; the current hero does not render them. */
     photos: HomePhoto[];
-    event: GgrEvent;
     ctaHref: string;
+    heroImage: HeroImage;
+    /** Announced upcoming show. Leave unset when nothing is announced. */
+    nextEvent?: GgrEvent;
+    /** Most recent past show, used for the recap. */
+    lastEvent?: GgrEvent;
+    /** "Artists: perform" link. The link is hidden until this is set. */
+    artistsHref?: string;
+    /** "Sponsors: partner" link. The link is hidden until this is set. */
+    sponsorsHref?: string;
 }
 
 /** A photo on the shows page; dimensions and blur placeholder come from the image manifest. */
