@@ -1,63 +1,51 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# GGR Music Group
 
-## Getting Started
+Site for GGR Music Group, an Eastern Shore music group, live at [ggrmusic.com](https://ggrmusic.com). Built with Next.js 16, React 19, TypeScript, Tailwind CSS 4 and shadcn/ui, deployed on Vercel. Content lives in code, signups post to a Google Sheets webhook, and photos go through a WebP pipeline you run before committing.
 
-First, run the development server:
+## Run it locally
+
+You need Node.js and pnpm.
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+pnpm install
+cp .env.example .env.local   # then fill it in
+pnpm dev                     # http://localhost:3000
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+`GOOGLE_WEBHOOK_URL` is the only variable: the Google Apps Script URL that `/api/subscribe` forwards signups to. Signups return a 500 without it; the rest of the site runs without it. The other scripts are in [`package.json`](package.json). `pnpm test` needs Node 22.18 or newer.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Project structure
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+- `app/`: the routes (`/`, `/shows`, `/subscribe`) and the signup API in `api/subscribe`.
+- `components/`: page sections. `home/` is the home hero and `ui/` holds small primitives.
+- `lib/`: site content (`content.ts`) and its types (`types.ts`, including `GgrEvent`, the featured event), the image manifest, and the map-link helpers with their tests.
+- `scripts/`: the image pipeline ([options](scripts/README.md)).
+- `public/images/`: optimized photos plus logos and icons.
+- `originals/`: raw photos for the pipeline. Gitignored.
+
+To change the featured event, edit `getHomeContent()` in `lib/content.ts`.
 
 ## Images
 
-Photos are optimized once, before they are committed, and served through `next/image`.
+Photos are optimized before they are committed and served through `next/image`.
 
-1. Drop the raw photos (JPG/PNG/TIFF) in `/originals`. This folder is gitignored, so keep your own backup of the files.
-2. Run `pnpm optimize-images`. Each photo is auto-rotated, its **long edge** capped at 2000px (never upscaled), and written as WebP (quality 80) to `public/images/<slug>.webp`. The slug is the lowercased, dash-separated filename: `IMG_4045.jpeg` becomes `img-4045`.
+1. Drop the raw photos (JPG, PNG or TIFF) in `originals/`. It is gitignored, so keep your own backup.
+2. Run `pnpm optimize-images`. Each photo is auto-rotated, its long edge capped at 2000px (never upscaled), and written as WebP to `public/images/<slug>.webp`. The slug is the lowercased, dash-separated filename: `IMG_4045.jpeg` becomes `img-4045`.
 3. Commit the new files in `public/images` and the regenerated `lib/image-manifest.json`.
-4. Reference the image by slug. The manifest holds each image's real `width`, `height` and a tiny `blurDataURL`, so nothing is hardcoded:
+4. Reference the image by slug in `lib/content.ts`. The manifest supplies its width, height and blur placeholder:
 
    ```ts
-   import { imageFields } from '@/lib/images';
-
-   // in lib/content.ts: fills thumbSrc, fullSrc, width, height and blurDataURL
-   { id: 'crowd', label: 'PHOTO · CROWD', alt: '…', gradient: '…', ...imageFields('my-photo-slug') }
+   { id: 'crowd', alt: '…', ...imageFields('my-photo-slug') }
    ```
 
-   `ImageSlug` is a type generated from the manifest, so a typo fails at compile time. Don't import `lib/image-manifest.json` from a client component; pass the values down as props.
+   Slugs are typed, so a typo fails at compile time. Don't import the manifest in a client component; pass the values down as props.
 
-Options and tuning:
+Flags, per-image overrides and hand-tuned files are in [scripts/README.md](scripts/README.md).
 
-- `pnpm optimize-images path/to/file-or-dir` converts specific inputs instead of `./originals`.
-- `--thumbs` also writes a 600px-wide `<slug>-thumb.webp` for each image (the manifest records it as `thumb`).
-- `--force` rebuilds files that already exist. Without it, an output that is newer than its original is skipped.
-- Per-image overrides go in `scripts/image-overrides.json`, keyed by slug: `{ "my-photo": { "maxEdge": 1600, "quality": 75 } }`. The script warns about any output over 400KB, which is the cue to add one.
-- **Hand-tuned files:** export a file yourself (e.g. from Squoosh) and put it directly in `public/images/<slug>.webp`. It is never overwritten (the script skips an output newer than its original), and it still gets a manifest entry (dimensions and blur placeholder) on the next `pnpm optimize-images` run, even with no original.
-- Logos, favicons and icons (and SVG/ICO/PNG files in `public/images`) are not photos. They are ignored by the script and manifest; just put them in `public/images` and reference them directly.
+## Deployment
 
-## Learn More
+Vercel deploys from this repo: commits to `main` go to production at ggrmusic.com, and other branches get preview deployments.
 
-To learn more about Next.js, take a look at the following resources:
+## Working with AI agents
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+`CLAUDE.md` imports `AGENTS.md`, which tells agents to read the Next.js docs in `node_modules/next/dist/docs/` before writing code.
