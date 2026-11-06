@@ -1,4 +1,4 @@
-import { imageFields, imageWithAlt } from '@/lib/images';
+import { getImage, imageFields, imageWithAlt } from '@/lib/images';
 import type { GgrEvent, HomeContent, OfferImages, ShowsContent } from '@/lib/types';
 
 const MONTHS = ['JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUN', 'JUL', 'AUG', 'SEP', 'OCT', 'NOV', 'DEC'];
@@ -8,11 +8,14 @@ const MONTHS = ['JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUN', 'JUL', 'AUG', 'SEP', '
  * fetch later. Components only depend on the HomeContent shape.
  */
 export async function getHomeContent(): Promise<HomeContent> {
-    // Baseline test photos for the hero mosaic. Swap the slug (file name in public/images, without
-    // extension) for the final image; imageFields() fills thumbSrc/fullSrc/width/height/blurDataURL.
-    // The gradient is shown behind the photo until it loads and is the fallback if no slug is given.
+    // Hero background photo. One-line swap: change the slug (a file name in public/images, without extension).
+    const hero = getImage('img-4508');
+
     return {
         ctaHref: '/subscribe',
+        heroImage: { src: hero.src, width: hero.width, height: hero.height, blurDataURL: hero.blurDataURL, objectPosition: 'center 30%' },
+        // artistsHref and sponsorsHref are unset on purpose: those links stay hidden until destinations exist.
+        // Baseline test photos for the mosaic component (imageFields() fills thumbSrc/fullSrc/width/height/blurDataURL).
         photos: [
             { id: 'crowd', label: 'PHOTO · CROWD', alt: 'Black and white shot of a performer and crowd inside a venue', gradient: 'linear-gradient(160deg,#6a6a6a,#1c1c1c)', ...imageFields('photo-095202374210') },
             { id: 'stage', label: 'PHOTO · STAGE', alt: 'Artist in a white tee performing on stage with the mic raised', gradient: 'linear-gradient(200deg,#8a8a8a,#2a2a2a)', objectPosition: 'center top', ...imageFields('0286cba7-8496-4ba6-b2f7-acc9691751b1') },
@@ -20,7 +23,9 @@ export async function getHomeContent(): Promise<HomeContent> {
             { id: 'mic', label: 'PHOTO · MIC', alt: 'Singer on the mic under purple light', gradient: 'linear-gradient(180deg,#5a5a5a,#1a1a1a)', ...imageFields('img-4508') },
             { id: 'dj', label: 'PHOTO · DJ', alt: 'Mixing console with lit faders', gradient: 'linear-gradient(140deg,#777,#222)', ...imageFields('sound-board') },
         ],
-        event: {
+        // Ghostfest 4 is past, so the home page shows its recap. When the next show is announced, add it as
+        // `nextEvent`; the hero switches on its own once the date is today or later.
+        lastEvent: {
             title: 'Ghostfest 4',
             editionLabel: 'Ghostfest No. 04',
             date: '2026-10-24',
@@ -70,6 +75,13 @@ export async function getOfferImages(): Promise<OfferImages> {
 export function formatEventDate(iso: string): string {
     const [, month, day] = iso.split('-').map(Number);
     return `${MONTHS[month - 1]} ${day}`;
+}
+
+/** "2026-10-24" -> "Oct 24, 2026". */
+export function formatEventDateLong(iso: string): string {
+    const [year, month, day] = iso.split('-').map(Number);
+    const name = MONTHS[month - 1];
+    return `${name[0]}${name.slice(1).toLowerCase()} ${day}, ${year}`;
 }
 
 /** One ticker sequence: "Ghostfest 4 ✕ Oct 24 ✕ Lurking Class ✕ Doors 6PM ✕ Salisbury MD ✕ ". */

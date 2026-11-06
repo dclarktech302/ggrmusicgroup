@@ -5,6 +5,11 @@ import FooterSection from '@/components/footer';
 import { getOfferImages } from '@/lib/content';
 import { ArrowRight, Bell, Music, Users } from 'lucide-react';
 
+// The hero's show stub depends on today's date (Eastern). Regenerate this static page at most once an hour, so the
+// stub flips within about an hour of Eastern midnight without a redeploy. Must be a literal number (Next reads it
+// statically); an expression like 60 * 60 is not allowed.
+export const revalidate = 3600;
+
 export default async function Home() {
     const offerImages = await getOfferImages();
 
