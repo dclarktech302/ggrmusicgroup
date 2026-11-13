@@ -14,7 +14,7 @@ export async function getHomeContent(): Promise<HomeContent> {
     return {
         ctaHref: '/subscribe',
         heroImage: { src: hero.src, width: hero.width, height: hero.height, blurDataURL: hero.blurDataURL, objectPosition: 'center 30%' },
-        // artistsHref and sponsorsHref are unset on purpose: those links stay hidden until destinations exist.
+        // artistsHref is unset on purpose: the "Artists: perform" link stays hidden until a destination exists.
         // Baseline test photos for the mosaic component (imageFields() fills thumbSrc/fullSrc/width/height/blurDataURL).
         photos: [
             { id: 'crowd', label: 'PHOTO · CROWD', alt: 'Black and white shot of a performer and crowd inside a venue', gradient: 'linear-gradient(160deg,#6a6a6a,#1c1c1c)', ...imageFields('photo-095202374210') },

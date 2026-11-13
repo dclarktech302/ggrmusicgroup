@@ -69,8 +69,6 @@ export interface HomeContent {
     lastEvent?: GgrEvent;
     /** "Artists: perform" link. The link is hidden until this is set. */
     artistsHref?: string;
-    /** "Sponsors: partner" link. The link is hidden until this is set. */
-    sponsorsHref?: string;
 }
 
 /** A photo on the shows page; dimensions and blur placeholder come from the image manifest. */

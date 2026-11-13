@@ -18,7 +18,7 @@ const LINK_CLASS =
  * up with the headline's left edge.
  */
 export default async function GgrHero() {
-    const { heroImage, ctaHref, nextEvent, lastEvent, artistsHref, sponsorsHref } = await getHomeContent();
+    const { heroImage, ctaHref, nextEvent, lastEvent, artistsHref } = await getHomeContent();
     const state = getShowState(easternToday(), nextEvent, lastEvent);
     const stubEvent = state === 'upcoming' ? nextEvent : state === 'recent' ? lastEvent : undefined;
 
@@ -58,19 +58,10 @@ export default async function GgrHero() {
                             >
                                 Join the email list
                             </Link>
-                            {(artistsHref || sponsorsHref) && (
-                                <div className="flex gap-6 md:gap-8">
-                                    {artistsHref && (
-                                        <Link href={artistsHref} className={LINK_CLASS}>
-                                            Artists: perform
-                                        </Link>
-                                    )}
-                                    {sponsorsHref && (
-                                        <Link href={sponsorsHref} className={LINK_CLASS}>
-                                            Sponsors: partner
-                                        </Link>
-                                    )}
-                                </div>
+                            {artistsHref && (
+                                <Link href={artistsHref} className={LINK_CLASS}>
+                                    Artists: perform
+                                </Link>
                             )}
                         </div>
                     </div>
