@@ -39,7 +39,14 @@ export interface GgrEvent {
     editionLabel: string;
     /** ISO calendar date, e.g. "2026-10-24". */
     date: string;
-    doorsTime: string;
+    /** Doors time, when the venue publishes one (e.g. "6PM"). Never print "Doors" without it. */
+    doorsTime?: string;
+    /** Show start time, e.g. "8PM". */
+    showTime?: string;
+    /** Admission, shown as written, e.g. "$5 at the door". */
+    price?: string;
+    /** Switches the home hero to a show-specific look while this is the upcoming show. Unset = default hero. */
+    heroVariant?: 'ghocase';
     venueName: string;
     venueShortName: string;
     /** Street address used for the map link, e.g. "213 W Main St, Salisbury, MD 21801". */
@@ -63,6 +70,8 @@ export interface HomeContent {
     photos: HomePhoto[];
     ctaHref: string;
     heroImage: HeroImage;
+    /** Background photo for the show-specific hero variant (see GgrEvent.heroVariant). */
+    showHeroImage: HeroImage;
     /** Announced upcoming show. Leave unset when nothing is announced. */
     nextEvent?: GgrEvent;
     /** Most recent past show, used for the recap. */

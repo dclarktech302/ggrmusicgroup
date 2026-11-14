@@ -1,6 +1,7 @@
 import { getImage, imageFields, imageWithAlt } from '@/lib/images';
 import type { GgrEvent, HomeContent, OfferImages, ShowsContent } from '@/lib/types';
 
+const WEEKDAYS = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
 const MONTHS = ['JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUN', 'JUL', 'AUG', 'SEP', 'OCT', 'NOV', 'DEC'];
 
 /**
@@ -10,10 +11,13 @@ const MONTHS = ['JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUN', 'JUL', 'AUG', 'SEP', '
 export async function getHomeContent(): Promise<HomeContent> {
     // Hero background photo. One-line swap: change the slug (a file name in public/images, without extension).
     const hero = getImage('img-4508');
+    // Photo for the GHO-CASE hero variant (black and white, 2000px: the sharpest landscape in the repo).
+    const showHero = getImage('photo-0915202381027');
 
     return {
         ctaHref: '/subscribe',
         heroImage: { src: hero.src, width: hero.width, height: hero.height, blurDataURL: hero.blurDataURL, objectPosition: 'center 30%' },
+        showHeroImage: { src: showHero.src, width: showHero.width, height: showHero.height, blurDataURL: showHero.blurDataURL, objectPosition: 'center 35%' },
         // artistsHref is unset on purpose: the "Artists: perform" link stays hidden until a destination exists.
         // Baseline test photos for the mosaic component (imageFields() fills thumbSrc/fullSrc/width/height/blurDataURL).
         photos: [
@@ -23,8 +27,23 @@ export async function getHomeContent(): Promise<HomeContent> {
             { id: 'mic', label: 'PHOTO · MIC', alt: 'Singer on the mic under purple light', gradient: 'linear-gradient(180deg,#5a5a5a,#1a1a1a)', ...imageFields('img-4508') },
             { id: 'dj', label: 'PHOTO · DJ', alt: 'Mixing console with lit faders', gradient: 'linear-gradient(140deg,#777,#222)', ...imageFields('sound-board') },
         ],
-        // Ghostfest 4 is past, so the home page shows its recap. When the next show is announced, add it as
-        // `nextEvent`; the hero switches on its own once the date is today or later.
+        // GHO-CASE 8 is the upcoming show. Once its date has passed the hero and stub fall back on their own (the
+        // recap shows for 45 days). To announce another show, replace this block; drop `heroVariant` for the default hero.
+        nextEvent: {
+            title: 'GHO-CASE 8',
+            editionLabel: 'GHO-CASE No. 08',
+            date: '2026-12-04',
+            // The flyer gives no doors time, so there is none: nothing may print "Doors" for this show.
+            showTime: '8PM',
+            price: '$5 at the door',
+            heroVariant: 'ghocase',
+            venueName: 'The Smokey Heifer',
+            venueShortName: 'The Smokey Heifer',
+            venueAddress: '3 Ninth St FL 2, Ocean City, MD 21842',
+            city: 'Ocean City',
+            state: 'MD',
+        },
+        // Most recent past show: the recap shows for 45 days after its date when no show is upcoming.
         lastEvent: {
             title: 'Ghostfest 4',
             editionLabel: 'Ghostfest No. 04',
@@ -77,6 +96,14 @@ export function formatEventDate(iso: string): string {
     return `${MONTHS[month - 1]} ${day}`;
 }
 
+/** "2026-12-04" -> "Fri, Dec 4". The weekday comes from Date.UTC on the parsed parts, so it never shifts with timezone. */
+export function formatEventDayShort(iso: string): string {
+    const [year, month, day] = iso.split('-').map(Number);
+    const weekday = WEEKDAYS[new Date(Date.UTC(year, month - 1, day)).getUTCDay()];
+    const name = MONTHS[month - 1];
+    return `${weekday}, ${name[0]}${name.slice(1).toLowerCase()} ${day}`;
+}
+
 /** "2026-10-24" -> "Oct 24, 2026". */
 export function formatEventDateLong(iso: string): string {
     const [year, month, day] = iso.split('-').map(Number);
@@ -87,7 +114,8 @@ export function formatEventDateLong(iso: string): string {
 /** One ticker sequence: "Ghostfest 4 ✕ Oct 24 ✕ Lurking Class ✕ Doors 6PM ✕ Salisbury MD ✕ ". */
 export function buildTickerText(event: GgrEvent): string {
     const date = formatEventDate(event.date);
-    return [event.title, date, event.venueShortName, `Doors ${event.doorsTime}`, `${event.city} ${event.state}`]
+    return [event.title, date, event.venueShortName, event.doorsTime && `Doors ${event.doorsTime}`, `${event.city} ${event.state}`]
+        .filter(Boolean)
         .map((part) => `${part} ✕ `)
         .join('');
 }
