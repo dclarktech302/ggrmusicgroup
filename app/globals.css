@@ -157,6 +157,14 @@ input[type="checkbox"]:checked:hover {
     --color-ggr-red: #e10600;
     --color-ggr-paper: #f4f4f2;
     --color-ggr-line: #333;
+    --color-ggr-ink: #0a0912;
+    --color-ggr-ink-3: #160f2e;
+    --color-ggr-violet: #814be4;
+    --color-ggr-violet-hover: #6f41c4;
+    --color-ggr-violet-lt: #af77eb;
+    --color-ggr-cyan: #11aae0;
+    --color-ggr-amber: #cc7636;
+    --color-ggr-bone: #f4f1f1;
     --font-display: var(--font-archivo), ui-sans-serif, system-ui, sans-serif;
     --font-mono: var(--font-jetbrains-mono), ui-monospace, Menlo, monospace;
 }
@@ -238,7 +246,46 @@ input[type="checkbox"]:checked:hover {
 
 .ggr-lightbox-in { animation: ggr-in .2s ease-out; }
 
+/* Photo-ground hero: the photo drifts in once, the copy and stub fade up once. Nothing loops. */
+@keyframes ggr-push {
+    from { transform: scale(1); }
+    to { transform: scale(1.04); }
+}
+
+@keyframes ggr-rise {
+    from { opacity: 0; transform: translateY(12px); }
+    to { opacity: 1; transform: none; }
+}
+
+.ggr-push { animation: ggr-push 12s ease-out forwards; }
+.ggr-rise { animation: ggr-rise .8s ease-out both; }
+
+/* Darkens the hero photo so the type stays legible: top-to-bottom on phones, left-to-right (plus a vertical layer) from lg. */
+.ggr-scrim {
+    background: linear-gradient(180deg, rgba(10, 9, 18, .78) 0%, rgba(10, 9, 18, .68) 30%, rgba(10, 9, 18, .86) 62%, #0a0912 88%);
+}
+
+@media (min-width: 1024px) {
+    .ggr-scrim {
+        background:
+            linear-gradient(90deg, rgba(10, 9, 18, .92) 0%, rgba(10, 9, 18, .78) 45%, rgba(10, 9, 18, .08) 85%),
+            linear-gradient(180deg, rgba(10, 9, 18, .5) 0%, rgba(10, 9, 18, 0) 18%, rgba(10, 9, 18, 0) 62%, rgba(10, 9, 18, .8) 100%);
+    }
+}
+
+/* Ticket stub: a circle is cut out of the top and bottom edges where the dashed tear line sits. */
+.ggr-stub {
+    -webkit-mask:
+        radial-gradient(circle var(--stub-r) at calc(100% - var(--stub-tab)) 0, #0000 98%, #000) top/100% 51% no-repeat,
+        radial-gradient(circle var(--stub-r) at calc(100% - var(--stub-tab)) 100%, #0000 98%, #000) bottom/100% 51% no-repeat;
+    mask:
+        radial-gradient(circle var(--stub-r) at calc(100% - var(--stub-tab)) 0, #0000 98%, #000) top/100% 51% no-repeat,
+        radial-gradient(circle var(--stub-r) at calc(100% - var(--stub-tab)) 100%, #0000 98%, #000) bottom/100% 51% no-repeat;
+}
+
 @media (prefers-reduced-motion: reduce) {
+    .ggr-push,
+    .ggr-rise,
     .ggr-grain,
     .ggr-glitch,
     .ggr-ticker-track,
