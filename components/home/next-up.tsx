@@ -16,7 +16,7 @@ export function NextUp({ event }: { event: GgrEvent }) {
             <div className="flex flex-col gap-1 font-display text-[13px] font-semibold uppercase leading-[1.3] tracking-[.04em] md:mt-6 md:text-[15px] lg:col-span-5 lg:mt-0 lg:items-end lg:pb-2 lg:text-lg lg:text-right">
                 <div>{event.venueName}</div>
                 <div className="opacity-70">
-                    {event.city}, {event.state} · Doors {event.doorsTime}
+                    {event.city}, {event.state}{event.doorsTime && ` · Doors ${event.doorsTime}`}
                 </div>
             </div>
         </section>
