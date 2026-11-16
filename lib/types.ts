@@ -51,7 +51,7 @@ export interface GgrEvent {
     onlinePrice?: string;
     /** Where to buy tickets (external). Keep it clean: no tracking parameters. */
     ticketUrl?: string;
-    /** Performers, in the order they should be listed. */
+    /** Performers, in the order they should be listed. Not displayed yet (no performer names on the site for now); kept for a future page. */
     lineup?: string[];
     /** One or two sentences describing the show. */
     blurb?: string;

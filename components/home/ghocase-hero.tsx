@@ -67,13 +67,8 @@ export function GhoCaseHero({ event, image, ctaHref }: GhoCaseHeroProps) {
                                 in <span className="font-extrabold">Ocean City</span>
                             </span>
                         </p>
-                        {event.blurb && <p className="max-w-[520px] text-base text-(--gc-paper)/92 md:text-lg">{event.blurb}</p>}
-                        {event.lineup && event.lineup.length > 0 && (
-                            <p className="max-w-[520px] font-mono text-[13px] uppercase leading-relaxed tracking-[.14em] text-(--gc-sky)">
-                                <span className="sr-only">Lineup: </span>
-                                {event.lineup.join(' · ')}
-                            </p>
-                        )}
+                        {/* Phones skip the blurb: the stub already carries the details and the button should sit in the first screen. */}
+                        {event.blurb && <p className="hidden max-w-[520px] text-lg text-(--gc-paper)/92 md:block">{event.blurb}</p>}
                         <div className="flex flex-col gap-3.5 md:flex-row md:items-center md:gap-8">
                             {event.ticketUrl ? (
                                 <>
@@ -117,7 +112,12 @@ export function GhoCaseHero({ event, image, ctaHref }: GhoCaseHeroProps) {
                                 Details
                             </Link>
                         </div>
-                        <ul aria-label="Admission" className="flex flex-wrap items-center gap-2 lg:justify-end">
+                        {/* Phones: one short line of plain text instead of the four pills. */}
+                        <p className="font-mono text-[11px] uppercase tracking-[.06em] md:hidden">
+                            <span className="sr-only">Admission: </span>
+                            {[event.price, event.onlinePrice, event.ageLimit].filter(Boolean).join(' · ')}
+                        </p>
+                        <ul aria-label="Admission" className="hidden flex-wrap items-center gap-2 md:flex lg:justify-end">
                             {amount && (
                                 <li className={`${PILL} border-(--gc-sky) px-5 py-1.5 font-display text-2xl font-extrabold text-(--gc-sky) md:text-[26px]`}>{amount}</li>
                             )}
