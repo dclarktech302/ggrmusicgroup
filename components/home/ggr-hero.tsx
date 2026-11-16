@@ -29,7 +29,7 @@ export default async function GgrHero() {
     return (
         <div className={`${archivo.variable} ${jetbrainsMono.variable}`}>
             {showVariant ? (
-                <GhoCaseHero event={showVariant} image={showHeroImage} ctaHref={ctaHref} artistsHref={artistsHref} />
+                <GhoCaseHero event={showVariant} image={showHeroImage} ctaHref={ctaHref} />
             ) : (
                 <section className="relative isolate flex min-h-[max(844px,100svh)] flex-col overflow-hidden bg-ggr-ink text-ggr-bone md:min-h-[860px]">
                     <div aria-hidden className="ggr-push absolute inset-0 -z-10">
@@ -63,7 +63,7 @@ export default async function GgrHero() {
                                     href={ctaHref}
                                     className="inline-flex h-[52px] w-full items-center justify-center rounded-full bg-ggr-violet px-9 font-semibold text-white shadow-[0_0_48px_rgba(129,75,228,.4)] transition-[background-color,transform] duration-150 hover:bg-ggr-violet-hover focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ggr-violet-lt active:scale-[.97] md:h-14 md:w-auto"
                                 >
-                                    Join the email list
+                                    Sign up for updates
                                 </Link>
                                 {artistsHref && (
                                     <Link href={artistsHref} className={LINK_CLASS}>
@@ -80,8 +80,9 @@ export default async function GgrHero() {
                 </section>
             )}
 
-            {/* The strip has the map links, so it only makes sense when there is a venue to show. */}
-            {state === 'upcoming' && nextEvent && (
+            {/* The strip has the map links, so it only makes sense when there is a venue to show. The show hero carries
+                its own map link on the venue line, so the strip is skipped under it. */}
+            {state === 'upcoming' && nextEvent && !showVariant && (
                 <div className="bg-black pb-14 md:pb-20 lg:bg-ggr-page">
                     <div className="bg-ggr-page font-display">
                         <VenueStrip name={nextEvent.venueShortName} venueName={nextEvent.venueName} venueAddress={nextEvent.venueAddress} />

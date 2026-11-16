@@ -30,12 +30,19 @@ export async function getHomeContent(): Promise<HomeContent> {
         // GHO-CASE 8 is the upcoming show. Once its date has passed the hero and stub fall back on their own (the
         // recap shows for 45 days). To announce another show, replace this block; drop `heroVariant` for the default hero.
         nextEvent: {
-            title: 'GHO-CASE 8',
+            // Same wording as the Eventbrite listing.
+            title: 'Tha GHO-CASE 8',
             editionLabel: 'GHO-CASE No. 08',
             date: '2026-12-04',
-            // The flyer gives no doors time, so there is none: nothing may print "Doors" for this show.
+            doorsTime: '7PM',
             showTime: '8PM',
+            ageLimit: '18+',
             price: '$5 at the door',
+            // $5 plus a $2.18 Eventbrite processing fee.
+            onlinePrice: '$7.18 online',
+            ticketUrl: 'https://www.eventbrite.com/e/tha-gho-case-8-tickets-2004867494646',
+            lineup: ['Iamshowbizz', 'Linthanos', 'Neff', 'D. Royal', 'GloTheDilf'],
+            blurb: 'A live hip-hop artist competition. Judges and the crowd vote, and three winners get prizes.',
             heroVariant: 'ghocase',
             venueName: 'The Smokey Heifer',
             venueShortName: 'The Smokey Heifer',
