@@ -27,9 +27,6 @@ const PILL_MONO = `${PILL} border-(--gc-paper) px-4 py-2.5 font-mono text-[11px]
  */
 export function GhoCaseHero({ event, image, ctaHref }: GhoCaseHeroProps) {
     const when = [formatEventDayShort(event.date), event.showTime].filter(Boolean).join(' · ');
-    const venueLine = [event.doorsTime && `Doors ${event.doorsTime}`, `${event.venueShortName}, ${event.city}, ${event.state}`]
-        .filter(Boolean)
-        .join(' · ');
     // "$5 at the door" -> "$5" and "At the door"; shown as written.
     const [amount, ...rest] = event.price?.split(' ') ?? [];
     const priceNote = rest.join(' ');
@@ -37,10 +34,11 @@ export function GhoCaseHero({ event, image, ctaHref }: GhoCaseHeroProps) {
     const [, lead, name, number] = event.title.match(/^(?:(Tha)\s+)?(.*?)\s*(\d+)?$/) ?? [];
 
     const ticketClass = `inline-flex h-[52px] w-full items-center justify-center rounded-full bg-(--gc-sky) px-9 font-semibold text-(--gc-ink) transition-[background-color,transform] duration-150 hover:bg-(--gc-sky-lt) active:scale-[.97] md:h-14 md:w-auto ${FOCUS}`;
-    const textLink = `font-mono text-xs uppercase tracking-[.12em] underline underline-offset-[5px] ${FOCUS}`;
+    // Left-aligned with a 44px tap area on phones; on md and up it is the plain text link it was.
+    const textLink = `inline-flex min-h-11 items-center self-start font-mono text-xs uppercase tracking-[.12em] underline underline-offset-[5px] md:min-h-0 md:self-auto ${FOCUS}`;
 
     return (
-        <section className="ggr-theme-ghocase relative isolate flex min-h-[max(844px,100svh)] flex-col overflow-hidden bg-(--gc-ink) text-(--gc-paper) md:min-h-[900px]">
+        <section className="ggr-theme-ghocase relative isolate flex min-h-[max(640px,100svh)] flex-col overflow-hidden bg-(--gc-ink) text-(--gc-paper) md:min-h-[900px]">
             <div aria-hidden className="ggr-push absolute inset-0 -z-10">
                 <Image
                     src={image.src}
@@ -57,7 +55,7 @@ export function GhoCaseHero({ event, image, ctaHref }: GhoCaseHeroProps) {
             <div aria-hidden className="absolute inset-0 -z-10 bg-(--gc-sky) mix-blend-multiply" />
             <div aria-hidden className="ggr-gc-scrim absolute inset-0 -z-10" />
 
-            <div className="relative mx-auto flex w-full flex-1 flex-col px-8 pb-6 pt-[88px] md:max-w-[736px] md:px-6 md:pb-10 md:pt-[104px] lg:max-w-[1456px] lg:px-14 lg:pb-12 lg:pt-[112px]">
+            <div className="relative mx-auto flex w-full flex-1 flex-col px-8 pb-6 pt-[104px] md:max-w-[736px] md:px-6 md:pb-10 md:pt-[104px] lg:max-w-[1456px] lg:px-14 lg:pb-12 lg:pt-[112px]">
                 <div className="flex flex-col gap-8 lg:flex-row lg:items-start lg:justify-between">
                     <div className="ggr-rise flex flex-col gap-5 md:gap-6 lg:min-w-0">
                         <p className="font-mono text-xs uppercase tracking-[.24em] text-(--gc-sky) md:text-sm">GGR Music Group presents</p>
@@ -81,7 +79,7 @@ export function GhoCaseHero({ event, image, ctaHref }: GhoCaseHeroProps) {
                                     >
                                         Get tickets
                                     </a>
-                                    <Link href={ctaHref} className={`${textLink} self-center`}>
+                                    <Link href={ctaHref} className={textLink}>
                                         Sign up for updates
                                     </Link>
                                 </>
@@ -102,7 +100,21 @@ export function GhoCaseHero({ event, image, ctaHref }: GhoCaseHeroProps) {
                             <div className="min-w-0 flex-1 p-[14px_14px_14px_16px] md:p-[22px_22px_22px_24px]">
                                 <p className="font-mono text-[11px] uppercase tracking-[.16em]">Next show</p>
                                 <p className="mt-1.5 font-display text-[22px] font-extrabold leading-[1.05] tracking-[-.02em] md:mt-2 md:text-[38px]">{when}</p>
-                                <p className="mt-1.5 text-xs font-medium md:mt-2 md:text-[15px]">{venueLine}</p>
+                                <p className="mt-1.5 text-xs font-medium md:mt-2 md:text-[15px]">
+                                    {/* Two deliberate lines on phones (never a one-word last line); one line from md up. */}
+                                    {event.doorsTime && (
+                                        <>
+                                            <span className="block md:inline">Doors {event.doorsTime}</span>
+                                            <span aria-hidden className="hidden md:inline">
+                                                {' · '}
+                                            </span>
+                                        </>
+                                    )}
+                                    <span className="block md:inline">
+                                        {event.venueShortName}, {event.city}
+                                        <span className="hidden md:inline">, {event.state}</span>
+                                    </span>
+                                </p>
                             </div>
                             <Link
                                 href="/shows"
@@ -128,7 +140,8 @@ export function GhoCaseHero({ event, image, ctaHref }: GhoCaseHeroProps) {
                     </div>
                 </div>
 
-                <div className="ggr-rise mt-auto flex flex-col gap-3 pt-12 md:gap-5 lg:pt-8">
+                {/* Phones: the title follows the content with a fixed gap; it is pinned to the bottom only from md up. */}
+                <div className="ggr-rise flex flex-col gap-4 pt-8 md:mt-auto md:gap-5 md:pt-12 lg:pt-8">
                     {/* The title scales with its own width (container query units), so it never wraps or clips. */}
                     <div className="[container-type:inline-size]">
                         <h1 className={`relative whitespace-nowrap pt-[.2em] font-display font-extrabold uppercase leading-[.85] tracking-[-.02em] text-(--gc-sky) ${CONDENSED_MAX} text-[min(340px,24cqw)]`}>
