@@ -43,8 +43,18 @@ export interface GgrEvent {
     doorsTime?: string;
     /** Show start time, e.g. "8PM". */
     showTime?: string;
-    /** Admission, shown as written, e.g. "$5 at the door". */
+    /** Age limit, e.g. "18+". */
+    ageLimit?: string;
+    /** Admission at the door, shown as written, e.g. "$5 at the door". */
     price?: string;
+    /** Online ticket price including fees, shown as written, e.g. "$7.18 online". */
+    onlinePrice?: string;
+    /** Where to buy tickets (external). Keep it clean: no tracking parameters. */
+    ticketUrl?: string;
+    /** Performers, in the order they should be listed. Not displayed yet (no performer names on the site for now); kept for a future page. */
+    lineup?: string[];
+    /** One or two sentences describing the show. */
+    blurb?: string;
     /** Switches the home hero to a show-specific look while this is the upcoming show. Unset = default hero. */
     heroVariant?: 'ghocase';
     venueName: string;
