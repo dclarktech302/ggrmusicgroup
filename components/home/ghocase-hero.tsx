@@ -95,7 +95,10 @@ export function GhoCaseHero({ event, image, ctaHref }: GhoCaseHeroProps) {
                         <div
                             role="group"
                             aria-label="Next show"
-                            className="ggr-stub flex w-full rounded-[14px] bg-(--gc-sky) text-(--gc-ink) [--stub-r:8px] [--stub-tab:92px] md:rounded-2xl md:[--stub-r:10px] md:[--stub-tab:140px]"
+                            // The tear-off tab (dashed divider and notches) exists only when "Details" has somewhere to go.
+                            className={`flex w-full rounded-[14px] bg-(--gc-sky) text-(--gc-ink) md:rounded-2xl ${
+                                event.ticketUrl ? 'ggr-stub [--stub-r:8px] [--stub-tab:92px] md:[--stub-r:10px] md:[--stub-tab:140px]' : ''
+                            }`}
                         >
                             <div className="min-w-0 flex-1 p-[14px_14px_14px_16px] md:p-[22px_22px_22px_24px]">
                                 <p className="font-mono text-[11px] uppercase tracking-[.16em]">Next show</p>
@@ -116,13 +119,18 @@ export function GhoCaseHero({ event, image, ctaHref }: GhoCaseHeroProps) {
                                     </span>
                                 </p>
                             </div>
-                            <Link
-                                href="/shows"
-                                // Ink ring, drawn inside: paper vanishes on sky, and the mask clips anything outside the stub.
-                                className="flex w-[92px] shrink-0 items-center justify-center border-l-2 border-dashed border-[rgba(9,9,9,.45)] p-2 text-center font-mono text-xs font-semibold uppercase tracking-[.1em] outline-(--gc-ink) focus-visible:-outline-offset-4 focus-visible:outline-2 md:w-[140px]"
-                            >
-                                Details
-                            </Link>
+                            {event.ticketUrl && (
+                                <a
+                                    href={event.ticketUrl}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    aria-label="Details on Eventbrite (opens in a new tab)"
+                                    // Ink ring, drawn inside: paper vanishes on sky, and the mask clips anything outside the stub.
+                                    className="flex w-[92px] shrink-0 items-center justify-center border-l-2 border-dashed border-[rgba(9,9,9,.45)] p-2 text-center font-mono text-xs font-semibold uppercase tracking-[.1em] outline-(--gc-ink) focus-visible:-outline-offset-4 focus-visible:outline-2 md:w-[140px]"
+                                >
+                                    Details
+                                </a>
+                            )}
                         </div>
                         {/* Phones: one short line of plain text instead of the four pills. */}
                         <p className="font-mono text-[11px] uppercase tracking-[.06em] md:hidden">

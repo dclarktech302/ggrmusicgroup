@@ -9,28 +9,40 @@ interface ShowStubProps {
     event?: GgrEvent;
 }
 
+const LINK_CLASS =
+    // Ink ring, drawn inside: violet would vanish on amber, and the mask clips anything outside the stub.
+    'flex w-[92px] shrink-0 items-center justify-center border-l-2 border-dashed border-[rgba(10,9,18,.45)] p-2 text-center font-mono text-xs font-semibold uppercase tracking-[.1em] text-ggr-ink outline-ggr-ink focus-visible:-outline-offset-4 focus-visible:outline-2 md:w-[140px]';
+
 function stubCopy(state: ShowState, event?: GgrEvent) {
     if (state === 'tba' || !event) {
-        return { label: 'Next show', title: 'To be announced', meta: "Join the list and you'll hear first.", linkText: undefined };
+        return { label: 'Next show', title: 'To be announced', meta: "Join the list and you'll hear first.", link: undefined };
     }
+    // Upcoming: "Details" opens the show's Eventbrite page (there are no show pages yet); with no ticket link there is
+    // nowhere to go, so there is no tab. Recent: the recap lives on /shows, with the photos.
+    const link =
+        state === 'upcoming'
+            ? event.ticketUrl
+                ? { text: 'Details', href: event.ticketUrl, external: true }
+                : undefined
+            : { text: 'See the recap', href: '/shows', external: false };
     return {
         label: state === 'upcoming' ? 'Next show' : 'Last show · Recap',
         title: event.title,
         meta: `${formatEventDateLong(event.date)} · ${event.venueShortName}, ${event.city}, ${event.state}`,
-        linkText: state === 'upcoming' ? 'Details' : 'See the recap',
+        link,
     };
 }
 
 /** Amber ticket stub for the hero. The tear-off link (with the notches) only exists when there is somewhere to go. */
 export function ShowStub({ state, event }: ShowStubProps) {
-    const { label, title, meta, linkText } = stubCopy(state, event);
+    const { label, title, meta, link } = stubCopy(state, event);
 
     return (
         <div
             role="group"
             aria-label={label}
             className={`flex w-full rounded-[14px] bg-ggr-amber text-ggr-ink md:w-[560px] md:rounded-2xl ${
-                linkText ? 'ggr-stub [--stub-tab:92px] [--stub-r:8px] md:[--stub-tab:140px] md:[--stub-r:10px]' : ''
+                link ? 'ggr-stub [--stub-tab:92px] [--stub-r:8px] md:[--stub-tab:140px] md:[--stub-r:10px]' : ''
             }`}
         >
             <div className="min-w-0 flex-1 p-[14px_14px_14px_16px] md:p-[22px_22px_22px_24px]">
@@ -38,15 +50,22 @@ export function ShowStub({ state, event }: ShowStubProps) {
                 <p className="mt-1.5 font-display text-xl font-extrabold leading-[1.05] tracking-[-.02em] md:mt-2 md:text-[32px]">{title}</p>
                 <p className="mt-1.5 text-xs font-medium md:mt-2 md:text-[15px]">{meta}</p>
             </div>
-            {linkText && (
-                <Link
-                    href="/shows"
-                    // Ink ring, drawn inside: violet would vanish on amber, and the mask clips anything outside the stub.
-                    className="flex w-[92px] shrink-0 items-center justify-center border-l-2 border-dashed border-[rgba(10,9,18,.45)] p-2 text-center font-mono text-xs font-semibold uppercase tracking-[.1em] text-ggr-ink outline-ggr-ink focus-visible:-outline-offset-4 focus-visible:outline-2 md:w-[140px]"
-                >
-                    {linkText}
-                </Link>
-            )}
+            {link &&
+                (link.external ? (
+                    <a
+                        href={link.href}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        aria-label="Details on Eventbrite (opens in a new tab)"
+                        className={LINK_CLASS}
+                    >
+                        {link.text}
+                    </a>
+                ) : (
+                    <Link href={link.href} className={LINK_CLASS}>
+                        {link.text}
+                    </Link>
+                ))}
         </div>
     );
 }
