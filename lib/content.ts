@@ -11,13 +11,13 @@ const MONTHS = ['JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUN', 'JUL', 'AUG', 'SEP', '
 export async function getHomeContent(): Promise<HomeContent> {
     // Hero background photo. One-line swap: change the slug (a file name in public/images, without extension).
     const hero = getImage('img-4508');
-    // Photo for the GHO-CASE hero variant (black and white, 2000px: the sharpest landscape in the repo).
-    const showHero = getImage('photo-0915202381027');
+    // Photo for the GHO-CASE hero variant (performer in cyan-blue stage light, 1169x1300).
+    const showHero = getImage('img-4515');
 
     return {
         ctaHref: '/subscribe',
         heroImage: { src: hero.src, width: hero.width, height: hero.height, blurDataURL: hero.blurDataURL, objectPosition: 'center 30%' },
-        showHeroImage: { src: showHero.src, width: showHero.width, height: showHero.height, blurDataURL: showHero.blurDataURL, objectPosition: 'center 35%' },
+        showHeroImage: { src: showHero.src, width: showHero.width, height: showHero.height, blurDataURL: showHero.blurDataURL, objectPosition: '21% 0%' },
         // artistsHref is unset on purpose: the "Artists: perform" link stays hidden until a destination exists.
         // Baseline test photos for the mosaic component (imageFields() fills thumbSrc/fullSrc/width/height/blurDataURL).
         photos: [

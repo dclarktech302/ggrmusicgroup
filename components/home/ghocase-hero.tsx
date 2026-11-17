@@ -39,7 +39,8 @@ export function GhoCaseHero({ event, image, ctaHref }: GhoCaseHeroProps) {
 
     return (
         <section className="ggr-theme-ghocase relative isolate flex min-h-[max(640px,100svh)] flex-col overflow-hidden bg-(--gc-ink) text-(--gc-paper) md:min-h-[900px]">
-            <div aria-hidden className="ggr-push absolute inset-0 -z-10">
+            {/* The photo keeps its own colour (it is already cyan-blue; a grayscale + sky multiply made the performer murky). From lg it is anchored to the right, so the performer (left of centre in the photo) clears the headline; its left edge fades into the ink background. */}
+            <div aria-hidden className="ggr-push absolute inset-0 -z-10 lg:left-[16%] lg:[mask-image:linear-gradient(90deg,transparent,#000_30%)]">
                 <Image
                     src={image.src}
                     alt=""
@@ -47,12 +48,11 @@ export function GhoCaseHero({ event, image, ctaHref }: GhoCaseHeroProps) {
                     preload
                     sizes="100vw"
                     className="object-cover"
-                    style={{ objectPosition: image.objectPosition, filter: 'grayscale(1) contrast(1.15)' }}
+                    style={{ objectPosition: image.objectPosition }}
                     placeholder="blur"
                     blurDataURL={image.blurDataURL}
                 />
             </div>
-            <div aria-hidden className="absolute inset-0 -z-10 bg-(--gc-sky) mix-blend-multiply" />
             <div aria-hidden className="ggr-gc-scrim absolute inset-0 -z-10" />
 
             <div className="relative mx-auto flex w-full flex-1 flex-col px-8 pb-6 pt-[104px] md:max-w-[736px] md:px-6 md:pb-10 md:pt-[104px] lg:max-w-[1456px] lg:px-14 lg:pb-12 lg:pt-[112px]">
