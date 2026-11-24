@@ -1,6 +1,6 @@
 # GGR Music Group
 
-Site for GGR Music Group, an Eastern Shore music group, live at [ggrmusic.com](https://ggrmusic.com). Built with Next.js 16, React 19, TypeScript, Tailwind CSS 4 and shadcn/ui, deployed on Vercel. Content lives in code, signups post to a Google Sheets webhook, and photos go through a WebP pipeline you run before committing.
+Site for GGR Music Group, an Eastern Shore music group, live at [ggrmusic.com](https://ggrmusic.com). Built with Next.js 16, React 19, TypeScript, Tailwind CSS 4 and shadcn/ui, deployed on Vercel. Content lives in code, signups go to GGR's komi.io form, and photos go through a WebP pipeline you run before committing.
 
 ## Run it locally
 
@@ -8,17 +8,16 @@ You need Node.js and pnpm.
 
 ```bash
 pnpm install
-cp .env.example .env.local   # then fill it in
-pnpm dev                     # http://localhost:3000
+pnpm dev   # http://localhost:3000
 ```
 
-`GOOGLE_WEBHOOK_URL` is the only variable: the Google Apps Script URL that `/api/subscribe` forwards signups to. Signups return a 500 without it; the rest of the site runs without it. The other scripts are in [`package.json`](package.json). `pnpm test` needs Node 22.18 or newer.
+No environment variables are needed. The other scripts are in [`package.json`](package.json). `pnpm test` needs Node 22.18 or newer.
 
 ## Project structure
 
-- `app/`: the routes (`/`, `/shows`, `/subscribe`) and the signup API in `api/subscribe`.
+- `app/`: the routes (`/`, `/shows`, and `/subscribe`, which redirects to the komi.io form).
 - `components/`: page sections. `home/` is the home hero and `ui/` holds small primitives.
-- `lib/`: site content (`content.ts`) and its types (`types.ts`, including `GgrEvent`, the featured event), the image manifest, and the map-link helpers with their tests.
+- `lib/`: site content (`content.ts`) and its types (`types.ts`, including `GgrEvent`, the featured event), the komi.io signup link (`signup.ts`), the image manifest, and the map-link helpers with their tests.
 - `scripts/`: the image pipeline ([options](scripts/README.md)).
 - `public/images/`: optimized photos plus logos and icons.
 - `originals/`: raw photos for the pipeline. Gitignored.

@@ -1,29 +1,9 @@
-import type { Metadata } from "next";
-import { HeroHeader } from "@/components/header";
-import SubscribeForm from "@/components/form";
-import FooterSection from "@/components/footer";
+import { redirect } from 'next/navigation';
+import { SIGNUP_URL } from '@/lib/signup';
 
-export const metadata: Metadata = {
-    title: "Subscribe",
-    description: "Subscribe to GGR Music Group for exclusive alerts and updates",
-};
-
-export default async function Subscribe({
-    searchParams,
-}: {
-    searchParams: Promise<{ email?: string }>;
-}) {
-    const { email } = await searchParams;
-
-    return (
-        <>
-            <HeroHeader />
-
-            <main className="min-h-screen pt-24">
-                <SubscribeForm initialEmail={email} />
-            </main>
-
-            <FooterSection />
-        </>
-    );
+// Old links to /subscribe (some carry ?email=) keep working: they land on the komi.io form, the one signup path.
+// redirect() sends a temporary 307 to exactly SIGNUP_URL, so the old query is dropped. A next.config redirect would
+// pass the query through to Komi.
+export default function Subscribe() {
+    redirect(SIGNUP_URL);
 }

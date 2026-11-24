@@ -59,12 +59,15 @@ export default async function GgrHero() {
                                 GGR Music Group has put on live showcases and events across the Shore since 2022.
                             </p>
                             <div className="flex flex-col gap-3.5 md:flex-row md:items-center md:gap-8">
-                                <Link
+                                <a
                                     href={ctaHref}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    aria-label="Sign up for updates (opens in a new tab)"
                                     className="inline-flex h-[52px] w-full items-center justify-center rounded-full bg-ggr-violet px-9 font-semibold text-white shadow-[0_0_48px_rgba(129,75,228,.4)] transition-[background-color,transform] duration-150 hover:bg-ggr-violet-hover focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ggr-violet-lt active:scale-[.97] md:h-14 md:w-auto"
                                 >
                                     Sign up for updates
-                                </Link>
+                                </a>
                                 {artistsHref && (
                                     <Link href={artistsHref} className={LINK_CLASS}>
                                         Artists: perform
