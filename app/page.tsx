@@ -3,6 +3,7 @@ import { HeroHeader } from '@/components/header';
 import FeaturesWithImages from '@/components/features-12';
 import FooterSection from '@/components/footer';
 import { getOfferImages } from '@/lib/content';
+import { SIGNUP_URL } from '@/lib/signup';
 import { ArrowRight, Bell, Music, Users } from 'lucide-react';
 
 // The hero's show stub depends on today's date (Eastern). Regenerate this static page at most once an hour, so the
@@ -52,7 +53,7 @@ export default async function Home() {
                         </div>
 
                         <a
-                            href="https://ggr.komi.io/form/b907b906-9048-4e77-95cc-212808858389"
+                            href={SIGNUP_URL}
                             target="_blank"
                             rel="noopener noreferrer"
                             className="inline-flex items-center gap-2 bg-blue-600 text-white px-8 py-4 rounded-full font-semibold text-lg hover:bg-blue-700 transition-all duration-300 hover:scale-105 shadow-xl"

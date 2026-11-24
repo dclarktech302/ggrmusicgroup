@@ -1,4 +1,5 @@
 import { getImage, imageFields, imageWithAlt } from '@/lib/images';
+import { SIGNUP_URL } from '@/lib/signup';
 import type { GgrEvent, HomeContent, OfferImages, ShowsContent } from '@/lib/types';
 
 const WEEKDAYS = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
@@ -15,7 +16,7 @@ export async function getHomeContent(): Promise<HomeContent> {
     const showHero = getImage('img-4515');
 
     return {
-        ctaHref: '/subscribe',
+        ctaHref: SIGNUP_URL,
         heroImage: { src: hero.src, width: hero.width, height: hero.height, blurDataURL: hero.blurDataURL, objectPosition: 'center 30%' },
         showHeroImage: { src: showHero.src, width: showHero.width, height: showHero.height, blurDataURL: showHero.blurDataURL, objectPosition: '21% 0%' },
         // artistsHref is unset on purpose: the "Artists: perform" link stays hidden until a destination exists.

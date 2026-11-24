@@ -10,8 +10,8 @@ is issue #17.
 - The GGR Music Group site, live at ggrmusic.com: Next.js 16, React 19, TypeScript, Tailwind 4,
   shadcn/ui, pnpm, on Vercel.
 - **Every merge to `main` deploys to production.** Other branches get Vercel previews.
-- Content lives in `lib/content.ts`. Signups post to a Google Sheets webhook through
-  `/api/subscribe`.
+- Content lives in `lib/content.ts`. Signups go to the komi.io form (`lib/signup.ts`); `/subscribe`
+  redirects there.
 
 ## Brand rules
 

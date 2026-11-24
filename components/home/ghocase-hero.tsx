@@ -1,6 +1,5 @@
 import Image from 'next/image';
 import { VenueMapChooser } from '@/components/home/venue-map-chooser';
-import Link from 'next/link';
 import { formatEventDayShort } from '@/lib/content';
 import type { GgrEvent, HeroImage } from '@/lib/types';
 
@@ -79,14 +78,26 @@ export function GhoCaseHero({ event, image, ctaHref }: GhoCaseHeroProps) {
                                     >
                                         Get tickets
                                     </a>
-                                    <Link href={ctaHref} className={textLink}>
+                                    <a
+                                        href={ctaHref}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        aria-label="Sign up for updates (opens in a new tab)"
+                                        className={textLink}
+                                    >
                                         Sign up for updates
-                                    </Link>
+                                    </a>
                                 </>
                             ) : (
-                                <Link href={ctaHref} className={ticketClass}>
+                                <a
+                                    href={ctaHref}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    aria-label="Sign up for updates (opens in a new tab)"
+                                    className={ticketClass}
+                                >
                                     Sign up for updates
-                                </Link>
+                                </a>
                             )}
                         </div>
                     </div>
