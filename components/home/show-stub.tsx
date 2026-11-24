@@ -18,13 +18,13 @@ function stubCopy(state: ShowState, event?: GgrEvent) {
         return { label: 'Next show', title: 'To be announced', meta: "Join the list and you'll hear first.", link: undefined };
     }
     // Upcoming: "Details" opens the show's Eventbrite page (there are no show pages yet); with no ticket link there is
-    // nowhere to go, so there is no tab. Recent: the recap lives on /shows, with the photos.
+    // nowhere to go, so there is no tab. Recent: the recap lives on /gallery, with the photos.
     const link =
         state === 'upcoming'
             ? event.ticketUrl
                 ? { text: 'Details', href: event.ticketUrl, external: true }
                 : undefined
-            : { text: 'See the recap', href: '/shows', external: false };
+            : { text: 'See the recap', href: '/gallery', external: false };
     return {
         label: state === 'upcoming' ? 'Next show' : 'Last show · Recap',
         title: event.title,

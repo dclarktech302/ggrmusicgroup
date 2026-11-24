@@ -19,10 +19,10 @@ export default function ContentSection({ featured, gallery }: { featured: ShowsI
         setCurrentImage(null)
     }
     return (
-        <section id="shows" className="py-16 md:py-32">
+        <section id="gallery" className="py-16 md:py-32">
             <div className="mx-auto max-w-5xl space-y-8 px-6 md:space-y-12">
                 <div className="mx-auto max-w-xl space-y-6 text-center md:space-y-12">
-                    <h2 className="text-balance text-4xl font-medium lg:text-5xl">Shows and Events</h2>
+                    <h2 className="text-balance text-4xl font-medium lg:text-5xl">Photo Gallery</h2>
                 </div>
 
                 {featured.map((image, i) => (
