@@ -5,11 +5,7 @@ import { Logo } from '@/components/logo'
 import { Menu, X } from 'lucide-react'
 import React from 'react'
 import { cn } from '@/lib/utils'
-
-const menuItems = [
-    { name: 'Home', href: '/' },
-    { name: 'Shows', href: '/shows' },
-]
+import { NAV_LINKS } from '@/lib/nav'
 
 interface HeroHeaderProps {
     /** Extra classes for the inner container (e.g. a different max width). Merged before the scrolled state, so the scrolled pill still wins. */
@@ -53,12 +49,12 @@ export const HeroHeader = ({ contentClassName }: HeroHeaderProps = {}) => {
 
                         <div className="absolute inset-0 m-auto hidden size-fit lg:block">
                             <ul className="flex gap-8 text-sm">
-                                {menuItems.map((item, index) => (
+                                {NAV_LINKS.map((item, index) => (
                                     <li key={index}>
                                         <Link
                                             href={item.href}
                                             className="text-muted-foreground hover:text-accent-foreground block duration-150">
-                                            <span>{item.name}</span>
+                                            <span>{item.label}</span>
                                         </Link>
                                     </li>
                                 ))}
@@ -68,12 +64,12 @@ export const HeroHeader = ({ contentClassName }: HeroHeaderProps = {}) => {
                         <div className="bg-background in-data-[state=active]:block lg:in-data-[state=active]:flex mb-6 hidden w-full flex-wrap items-center justify-end space-y-8 rounded-3xl border p-6 shadow-2xl shadow-zinc-300/20 md:flex-nowrap lg:m-0 lg:flex lg:w-fit lg:gap-6 lg:space-y-0 lg:border-transparent lg:bg-transparent lg:p-0 lg:shadow-none dark:shadow-none dark:lg:bg-transparent">
                             <div className="lg:hidden">
                                 <ul className="space-y-6 text-base">
-                                    {menuItems.map((item, index) => (
+                                    {NAV_LINKS.map((item, index) => (
                                         <li key={index}>
                                             <Link
                                                 href={item.href}
                                                 className="text-muted-foreground hover:text-accent-foreground block duration-150">
-                                                <span>{item.name}</span>
+                                                <span>{item.label}</span>
                                             </Link>
                                         </li>
                                     ))}
