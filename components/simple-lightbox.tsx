@@ -4,9 +4,28 @@ import Image from "next/image";
 import * as React from "react";
 import type { ShowsImage } from "@/lib/types";
 
+// The grid starts with the first 18 photos and "Show more" reveals 18 at a time (18, 36, 54 and 66 all fill whole
+// rows in both the 2- and 3-column grids). The lightbox still steps through every photo, shown or not.
+const INITIAL_COUNT = 18;
+const STEP = 18;
+
 export default function SimpleLightbox({ images }: { images: ShowsImage[] }) {
   const [open, setOpen] = React.useState(false);
   const [currentImage, setCurrentImage] = React.useState(0);
+  const [visibleCount, setVisibleCount] = React.useState(INITIAL_COUNT);
+  const firstNewIndex = React.useRef<number | null>(null);
+
+  const showMore = () => {
+    firstNewIndex.current = visibleCount;
+    setVisibleCount((count) => Math.min(count + STEP, images.length));
+  };
+
+  // After "Show more", move focus to the first newly revealed photo so keyboard users continue from there.
+  React.useEffect(() => {
+    if (firstNewIndex.current === null) return;
+    document.getElementById(`gallery-photo-${firstNewIndex.current}`)?.focus();
+    firstNewIndex.current = null;
+  }, [visibleCount]);
 
   const openLightbox = (index: number) => {
     setCurrentImage(index);
@@ -50,9 +69,10 @@ export default function SimpleLightbox({ images }: { images: ShowsImage[] }) {
   return (
     <>
       <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-3 gap-4">
-        {images.map((image, index) => (
+        {images.slice(0, visibleCount).map((image, index) => (
           <button
             key={index}
+            id={`gallery-photo-${index}`}
             type="button"
             aria-label={`Open photo: ${image.alt}`}
             className="relative block h-32 w-full cursor-pointer overflow-hidden rounded-lg"
@@ -70,6 +90,21 @@ export default function SimpleLightbox({ images }: { images: ShowsImage[] }) {
           </button>
         ))}
       </div>
+
+      {visibleCount < images.length && (
+        <div className="mt-8 flex flex-col items-center gap-3">
+          <p aria-live="polite" className="text-sm text-muted-foreground">
+            Showing {visibleCount} of {images.length} photos
+          </p>
+          <button
+            type="button"
+            onClick={showMore}
+            className="cursor-pointer rounded-full border px-6 py-2.5 text-sm font-medium transition-colors hover:bg-accent focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring"
+          >
+            Show more photos
+          </button>
+        </div>
+      )}
 
       {open && (
         <div
